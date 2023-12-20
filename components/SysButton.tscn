@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/SystemButtons.gd" type="Script" id=1]
+
+[node name="SysButton" type="ColorRect"]
+margin_right = 50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 0 )
+color = Color( 0.470588, 0.345098, 0.65098, 1 )
+script = ExtResource( 1 )
+
+[node name="Icon" type="Sprite" parent="."]
+position = Vector2( 25, 25 )
+scale = Vector2( 0.03, 0.03 )
+
+[connection signal="gui_input" from="." to="." method="_on_SysButton_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_SysButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_SysButton_mouse_exited"]
