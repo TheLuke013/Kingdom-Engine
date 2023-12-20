@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://icons/menu-burger.svg" type="Texture" id=1]
 [ext_resource path="res://scripts/ToggleButton.gd" type="Script" id=2]
@@ -12,18 +12,11 @@
 [ext_resource path="res://icons/cube.svg" type="Texture" id=10]
 [ext_resource path="res://icons/book-open-cover.svg" type="Texture" id=11]
 [ext_resource path="res://icons/settings.svg" type="Texture" id=12]
-[ext_resource path="res://components/Button.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/pages/Home.tscn" type="PackedScene" id=13]
 [ext_resource path="res://resources/corner_style.tres" type="StyleBox" id=14]
 [ext_resource path="res://resources/crimson_bold_font.tres" type="DynamicFont" id=15]
-[ext_resource path="res://icons/add-document.svg" type="Texture" id=16]
-[ext_resource path="res://icons/folder-open.svg" type="Texture" id=17]
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.211765, 0.188235, 0.384314, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[ext_resource path="res://scripts/EditorGUI.gd" type="Script" id=16]
+[ext_resource path="res://scenes/Editor.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Animation" id=2]
 resource_name = "sidebar_anim"
@@ -50,18 +43,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.470588, 0.345098, 0.65098, 1 )
 
+[node name="StaticTopbar" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
+[node name="BG2" type="ColorRect" parent="StaticTopbar"]
+margin_right = 1024.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+color = Color( 0.470588, 0.345098, 0.65098, 1 )
+
+[node name="Editor" parent="." instance=ExtResource( 17 )]
+editor_is_active = false
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 2.0
-margin_right = 1.0
-margin_bottom = 2.0
 
 [node name="Sidebar" type="Panel" parent="HBoxContainer"]
 margin_right = 70.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 70, 0 )
+rect_pivot_offset = Vector2( 84, -181 )
 rect_clip_content = true
 custom_styles/panel = ExtResource( 14 )
 
@@ -113,7 +117,7 @@ margin_top = 130.0
 margin_bottom = 170.0
 icon = ExtResource( 10 )
 label = "Editor"
-page = NodePath("../../../../Body/Pages/Editor")
+page = NodePath("../../../../Body/Pages/EditorGUI")
 
 [node name="BottomContainer" type="VBoxContainer" parent="HBoxContainer/Sidebar/VBoxContainer"]
 margin_top = 560.0
@@ -183,49 +187,18 @@ margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Home" type="Control" parent="HBoxContainer/Body/Pages"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Panel" type="Panel" parent="HBoxContainer/Body/Pages/Home"]
-margin_right = 282.0
-margin_bottom = 363.0
-rect_clip_content = true
-custom_styles/panel = SubResource( 4 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Body/Pages/Home/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = -10.0
-rect_clip_content = true
-custom_constants/separation = 10
-
-[node name="New" parent="HBoxContainer/Body/Pages/Home/Panel/VBoxContainer" instance=ExtResource( 13 )]
-margin_right = 262.0
-rect_clip_content = true
-icon = ExtResource( 16 )
-label = "New"
-
-[node name="Open" parent="HBoxContainer/Body/Pages/Home/Panel/VBoxContainer" instance=ExtResource( 13 )]
-margin_top = 63.0
-margin_right = 262.0
-margin_bottom = 116.0
-rect_clip_content = true
-icon = ExtResource( 17 )
-label = "Open"
+[node name="Home" parent="HBoxContainer/Body/Pages" instance=ExtResource( 13 )]
 
 [node name="Docs" type="Control" parent="HBoxContainer/Body/Pages"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Editor" type="Control" parent="HBoxContainer/Body/Pages"]
+[node name="EditorGUI" type="Control" parent="HBoxContainer/Body/Pages"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 16 )
 
 [node name="Settings" type="Control" parent="HBoxContainer/Body/Pages"]
 visible = false
@@ -237,3 +210,4 @@ anims/sidebar_anim = SubResource( 2 )
 
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" to="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" method="_on_ToggleButton_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Body/TopBar/TitleBar" to="HBoxContainer/Body/TopBar/TitleBar" method="_on_TitleBar_gui_input"]
+[connection signal="visibility_changed" from="HBoxContainer/Body/Pages/EditorGUI" to="HBoxContainer/Body/Pages/EditorGUI" method="_on_EditorGUI_visibility_changed"]
