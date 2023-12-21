@@ -37,7 +37,7 @@ margin_bottom = -575.0
 rect_min_size = Vector2( 1024, 25 )
 size_flags_horizontal = 3
 
-[node name="ToolButton" parent="ToolButtons" instance=ExtResource( 2 )]
+[node name="RunGame" parent="ToolButtons" instance=ExtResource( 2 )]
 icon = ExtResource( 3 )
 
 [connection signal="visibility_changed" from="." to="." method="_on_EditorGUI_visibility_changed"]
