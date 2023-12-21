@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scripts/Button.gd" type="Script" id=1]
+[ext_resource path="res://scripts/UI/Button.gd" type="Script" id=1]
 
 [node name="Button" type="Control"]
 margin_right = 114.0

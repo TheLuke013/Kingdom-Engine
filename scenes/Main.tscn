@@ -1,10 +1,10 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://icons/menu-burger.svg" type="Texture" id=1]
-[ext_resource path="res://scripts/ToggleButton.gd" type="Script" id=2]
+[ext_resource path="res://scripts/UI/ToggleButton.gd" type="Script" id=2]
 [ext_resource path="res://icons/home.svg" type="Texture" id=3]
 [ext_resource path="res://components/SysButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/TitleBar.gd" type="Script" id=5]
+[ext_resource path="res://scripts/UI/TitleBar.gd" type="Script" id=5]
 [ext_resource path="res://icons/window-maximize.svg" type="Texture" id=6]
 [ext_resource path="res://icons/cross-small.svg" type="Texture" id=7]
 [ext_resource path="res://icons/minus.svg" type="Texture" id=8]
@@ -15,7 +15,7 @@
 [ext_resource path="res://scenes/pages/Home.tscn" type="PackedScene" id=13]
 [ext_resource path="res://resources/corner_style.tres" type="StyleBox" id=14]
 [ext_resource path="res://resources/crimson_bold_font.tres" type="DynamicFont" id=15]
-[ext_resource path="res://scripts/EditorGUI.gd" type="Script" id=16]
+[ext_resource path="res://scenes/pages/EditorGUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/Editor.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Animation" id=2]
@@ -194,11 +194,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="EditorGUI" type="Control" parent="HBoxContainer/Body/Pages"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 16 )
+[node name="EditorGUI" parent="HBoxContainer/Body/Pages" instance=ExtResource( 16 )]
 
 [node name="Settings" type="Control" parent="HBoxContainer/Body/Pages"]
 visible = false
@@ -210,4 +206,3 @@ anims/sidebar_anim = SubResource( 2 )
 
 [connection signal="gui_input" from="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" to="HBoxContainer/Sidebar/VBoxContainer/TopContainer/ToggleButton" method="_on_ToggleButton_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/Body/TopBar/TitleBar" to="HBoxContainer/Body/TopBar/TitleBar" method="_on_TitleBar_gui_input"]
-[connection signal="visibility_changed" from="HBoxContainer/Body/Pages/EditorGUI" to="HBoxContainer/Body/Pages/EditorGUI" method="_on_EditorGUI_visibility_changed"]

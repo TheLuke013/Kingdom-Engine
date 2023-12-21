@@ -24,7 +24,6 @@ func zoom_out():
 		update_zoom()
 
 func update_zoom():
-	print(zoom_level)
 	camera.fov = zoom_level
 
 func _physics_process(_delta):

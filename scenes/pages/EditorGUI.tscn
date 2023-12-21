@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Pages/EditorGUI.gd" type="Script" id=1]
+[ext_resource path="res://components/ToolButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icons/toque.svg" type="Texture" id=3]
+
+[node name="EditorGUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4.0
+margin_right = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Topbar" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -575.0
+rect_min_size = Vector2( 1024, 25 )
+size_flags_horizontal = 3
+
+[node name="ToolsBar" type="ColorRect" parent="Topbar"]
+margin_right = 1024.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 1024, 25 )
+size_flags_horizontal = 3
+color = Color( 0.403922, 0.305882, 0.545098, 1 )
+
+[node name="ToolButtons" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -575.0
+rect_min_size = Vector2( 1024, 25 )
+size_flags_horizontal = 3
+
+[node name="ToolButton" parent="ToolButtons" instance=ExtResource( 2 )]
+icon = ExtResource( 3 )
+
+[connection signal="visibility_changed" from="." to="." method="_on_EditorGUI_visibility_changed"]
