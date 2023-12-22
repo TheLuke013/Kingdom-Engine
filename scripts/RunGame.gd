@@ -1,9 +1,9 @@
 extends Node
 
-var python_script_path = ProjectSettings.globalize_path("res://tasks/run_game.py")
-
 func run_game():
-	var process = OS.execute("python", [python_script_path])
+	var path = "bin/Engine.exe"
+	var args = []
+	var process = OS.execute(path, args, false)
 	
-	if process != 0:
+	if process == 0:
 		printerr("Erro ao executar o Jogo")
