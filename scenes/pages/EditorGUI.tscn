@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/Pages/EditorGUI.gd" type="Script" id=1]
 [ext_resource path="res://components/ToolButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icons/toque.svg" type="Texture" id=3]
+[ext_resource path="res://components/WarningDialog.tscn" type="PackedScene" id=4]
 
 [node name="EditorGUI" type="Control"]
 anchor_right = 1.0
@@ -39,5 +40,23 @@ size_flags_horizontal = 3
 
 [node name="RunGame" parent="ToolButtons" instance=ExtResource( 2 )]
 icon = ExtResource( 3 )
+
+[node name="LockBG" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0.0823529 )
+
+[node name="WarningDialog" parent="." instance=ExtResource( 4 )]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -225.0
+margin_top = -150.0
+margin_right = 225.0
+margin_bottom = 150.0
+title = "Aviso!"
+message = "Você precisa abrir ou criar um projeto antes de usar o Editor!"
 
 [connection signal="visibility_changed" from="." to="." method="_on_EditorGUI_visibility_changed"]

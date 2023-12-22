@@ -36,7 +36,7 @@ func _input(event):
 		look_rot.y -= (event.relative.x * sensitivity)
 		look_rot.x -= (event.relative.y * sensitivity)
 		look_rot.x = clamp(look_rot.x, MIN_ANGLE, MAX_ANGLE)
-	elif event is InputEventMouseButton:
+	elif event is InputEventMouseButton and editor_is_active:
 		#MOUSE ROTATION
 		if event.is_pressed() and event.get_button_index() == 2:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
