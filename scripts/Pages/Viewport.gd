@@ -32,7 +32,7 @@ func _physics_process(_delta):
 		rotation_degrees.y = look_rot.y
 
 func _input(event):
-	if event is InputEventMouseMotion and editor_is_active:
+	if event is InputEventMouseMotion and editor_is_active and can_move:
 		look_rot.y -= (event.relative.x * sensitivity)
 		look_rot.x -= (event.relative.y * sensitivity)
 		look_rot.x = clamp(look_rot.x, MIN_ANGLE, MAX_ANGLE)

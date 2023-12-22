@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Control",
+"class": "DialogSystem",
+"language": "GDScript",
+"path": "res://scripts/Classes/DialogSystem.gd"
+} ]
+_global_script_class_icons={
+"DialogSystem": ""
+}
+
 [application]
 
 config/name="Kingdom Engine"

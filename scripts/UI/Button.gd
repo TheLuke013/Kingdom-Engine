@@ -8,8 +8,8 @@ var style: StyleBoxFlat
 
 func _ready():
 	set_stylebox()
-	$Icon.texture = icon
-	$Label.text = label
+	$BG/Icon.texture = icon
+	$BG/Label.text = label
 
 func set_stylebox():
 	style = StyleBoxFlat.new() #instance

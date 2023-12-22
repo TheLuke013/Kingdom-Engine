@@ -15,4 +15,4 @@ func _on_New_gui_input(event):
 
 func _on_Open_gui_input(event):
 	if is_left_mouse_click(event):
-		print("Abrir Um Projeto")
+		$OpenProject.visible = true
