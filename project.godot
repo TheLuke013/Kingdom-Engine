@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "DialogSystem",
 "language": "GDScript",
 "path": "res://scripts/Classes/DialogSystem.gd"
+}, {
+"base": "Node",
+"class": "EngineProject",
+"language": "GDScript",
+"path": "res://scripts/Classes/Project.gd"
 } ]
 _global_script_class_icons={
-"DialogSystem": ""
+"DialogSystem": "",
+"EngineProject": ""
 }
 
 [application]
@@ -24,6 +30,10 @@ config/name="Kingdom Engine"
 run/main_scene="res://scenes/Main.tscn"
 run/low_processor_mode=true
 config/icon="res://icon.png"
+
+[autoload]
+
+KeEngine="*res://scripts/singletons/KEEngine.gd"
 
 [display]
 

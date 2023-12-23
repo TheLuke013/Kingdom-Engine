@@ -12,6 +12,7 @@ onready var cancel_button = $FileDialog/Cancel
 
 var current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 var project_selected = false
+var file_selected = ""
 
 func _ready():
 	#muda texto para o nome da extemsap requerido
@@ -62,7 +63,9 @@ func _on_FileTree_item_selected():
 		if item_path.get_extension() == extension_file:
 			open_button.set_stylebox()
 			project_selected = true
+			file_selected = item_path
 		else:
+			file_selected = ""
 			project_selected = false
 
 #vai para a pasta selecionada ao dar um duplo clique
@@ -106,7 +109,11 @@ func go_up_one_folder():
 func _on_Open_gui_input(event):
 	if event is InputEventMouseButton and project_selected:
 		if event.is_pressed() and event.get_button_index() == 1:
-			print("Abriu projeto")
+			var project = EngineProject.new()
+			print("Abrindo o projeto..")
+			if project.load_project(file_selected):
+				visible = false
+				KeEngine.load_project()
 
 func _on_Cancel_gui_input(event):
 	if event is InputEventMouseButton:

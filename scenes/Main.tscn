@@ -17,7 +17,7 @@
 [ext_resource path="res://resources/crimson_bold_font.tres" type="DynamicFont" id=15]
 [ext_resource path="res://scenes/pages/EditorGUI.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/Editor.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scripts/Main.gd" type="Script" id=18]
+[ext_resource path="res://scripts/singletons/Main.gd" type="Script" id=18]
 
 [sub_resource type="Animation" id=2]
 resource_name = "sidebar_anim"
@@ -104,7 +104,6 @@ texture = ExtResource( 1 )
 margin_top = 50.0
 margin_bottom = 90.0
 icon = ExtResource( 3 )
-active = true
 page = NodePath("../../../../Body/Pages/Home")
 
 [node name="Docs" parent="HBoxContainer/Sidebar/VBoxContainer/TopContainer" instance=ExtResource( 9 )]
