@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resources/crimson_bold_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://resources/light_bg.tres" type="StyleBox" id=2]
+[ext_resource path="res://resources/dialog_style.tres" type="StyleBox" id=3]
+[ext_resource path="res://components/MiniButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/UI/CreateProject.gd" type="Script" id=5]
+
+[node name="CreateProject" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -524.0
+margin_bottom = -250.0
+rect_min_size = Vector2( 500, 350 )
+script = ExtResource( 5 )
+
+[node name="Dialog" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 2 )
+
+[node name="CNPLabel" type="Label" parent="Dialog"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -240.0
+margin_right = 240.0
+margin_bottom = 43.0
+custom_fonts/font = ExtResource( 1 )
+text = "Create New Project"
+align = 1
+valign = 1
+
+[node name="Name" type="LineEdit" parent="Dialog"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 20.0
+margin_top = -125.0
+margin_right = 212.0
+margin_bottom = -101.0
+custom_styles/normal = ExtResource( 3 )
+max_length = 35
+placeholder_text = "Name"
+
+[node name="WPLabel" type="Label" parent="Dialog"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 20.0
+margin_top = -75.0
+margin_right = 500.0
+margin_bottom = -61.0
+rect_min_size = Vector2( 480, 0 )
+rect_clip_content = true
+text = "Window Properties:"
+valign = 1
+
+[node name="Width" type="LineEdit" parent="Dialog"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 20.0
+margin_top = -55.0
+margin_right = 78.0
+margin_bottom = -31.0
+custom_styles/normal = ExtResource( 3 )
+max_length = 4
+placeholder_text = "Width"
+
+[node name="Height" type="LineEdit" parent="Dialog"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 100.0
+margin_top = -55.0
+margin_right = 158.0
+margin_bottom = -31.0
+custom_styles/normal = ExtResource( 3 )
+max_length = 4
+placeholder_text = "Height"
+
+[node name="Create" parent="Dialog" instance=ExtResource( 4 )]
+margin_left = 20.0
+margin_top = 300.0
+margin_right = 134.0
+margin_bottom = 353.0
+rect_scale = Vector2( 0.5, 0.5 )
+label = "Create"
+
+[node name="Cancel" parent="Dialog" instance=ExtResource( 4 )]
+margin_left = 100.0
+margin_top = 300.0
+margin_right = 214.0
+margin_bottom = 353.0
+rect_scale = Vector2( 0.5, 0.5 )
+label = "Cancel"
+
+[connection signal="gui_input" from="Dialog" to="." method="_on_Dialog_gui_input"]
+[connection signal="text_changed" from="Dialog/Name" to="." method="_on_Name_text_changed"]
+[connection signal="text_changed" from="Dialog/Width" to="." method="_on_Width_text_changed"]
+[connection signal="text_changed" from="Dialog/Height" to="." method="_on_Height_text_changed"]
+[connection signal="gui_input" from="Dialog/Create" to="." method="_on_Create_gui_input"]
+[connection signal="gui_input" from="Dialog/Cancel" to="." method="_on_Cancel_gui_input"]

@@ -12,7 +12,6 @@ onready var cancel_button = $FileDialog/Cancel
 
 var current_dir = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 var project_selected = false
-var disable_style = load("res://resources/disable_button.tres")
 
 func _ready():
 	#muda texto para o nome da extemsap requerido

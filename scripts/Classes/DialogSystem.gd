@@ -4,6 +4,7 @@ class_name DialogSystem
 
 var following = false
 var start_pos = Vector2()
+var disable_style = load("res://resources/disable_button.tres")
 
 func drag_box(event):
 	if event is InputEventMouseButton:

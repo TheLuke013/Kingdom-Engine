@@ -10,9 +10,9 @@ func is_left_mouse_click(event):
 		return false
 
 func _on_New_gui_input(event):
-	if is_left_mouse_click(event):
-		print("Criar Novo Projeto")
+	if is_left_mouse_click(event) and not $OpenProject.visible:
+		$CreateProject.visible = true
 
 func _on_Open_gui_input(event):
-	if is_left_mouse_click(event):
+	if is_left_mouse_click(event) and not $CreateProject.visible:
 		$OpenProject.visible = true
