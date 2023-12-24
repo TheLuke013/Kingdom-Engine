@@ -16,7 +16,17 @@ func _ready():
 func _on_Create_gui_input(event):
 	if event is InputEventMouseButton and project_is_ok:
 		if event.is_pressed() and event.get_button_index() == 1:
-			print("Criou projeto")
+			var new_project = EngineProject.new()
+			
+			#obtem os valores das entradas que
+			#correspondem as propriedas do projeto
+			var proj_n = line_edit_n.text
+			var proj_window_w = int(line_edit_w.text)
+			var proj_window_h = int(line_edit_h.text)
+			
+			if new_project.create_project(proj_n, proj_window_w, proj_window_h):
+				visible = false
+				KeEngine.load_project()
 
 func _on_Cancel_gui_input(event):
 	if event is InputEventMouseButton:
