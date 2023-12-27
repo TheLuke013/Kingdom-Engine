@@ -6,9 +6,8 @@ enable_testing()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../bin)
 
-add_executable(KingdomEngineCore src/main.cpp)
+add_executable(KingdomEngineCore src/main.cpp src/Game.cpp)
 
-target_include_directories(KingdomEngineCore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/Irrlicht/include)
 target_link_libraries(KingdomEngineCore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/Irrlicht/lib/Irrlicht.lib)
 
 add_custom_command(TARGET KingdomEngineCore POST_BUILD
