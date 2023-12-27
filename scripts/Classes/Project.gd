@@ -12,6 +12,20 @@ var project: Dictionary = {
 	}
 }
 
+var main_scene: Dictionary = {
+	"scene": {
+		"name": "MainScene",
+		"nodes": ["HelloWorld"]
+	}
+}
+
+var hello_world_node: Dictionary = {
+	"node": {
+		"name": "HelloWorld",
+		"type": null
+	}
+}
+
 func load_project(kep_file_path):
 	#verifica se o arquivo KEP existe
 	print(kep_file_path)
@@ -84,12 +98,30 @@ func create_project(project_name: String, window_w: int, window_h: int):
 		proj_prop["window_height"] = window_h
 		
 		#salva dados do projeto
-		var json_string = JSON.print(project, "    ")
 		var json_file = File.new()
+		var project_json = JSON.print(project, "    ")
 		
 		#salva dados do projeto no arquivo KEP
 		if json_file.open(target_project_folder + "/project.kep", File.WRITE) == OK:
-			json_file.store_line(json_string)
+			json_file.store_line(project_json)
+			json_file.close()
+		else:
+			return false
+		
+		#salva dados da cena principal
+		var main_scene_json = JSON.print(main_scene, "    ")
+		
+		if json_file.open(target_project_folder + "/Main.scene", File.WRITE) == OK:
+			json_file.store_line(main_scene_json)
+			json_file.close()
+		else:
+			return false
+		
+		#salva dados do node Hello World
+		var hw_node_json = JSON.print(hello_world_node, "    ")
+		
+		if json_file.open(target_project_folder + "/HelloWorld.node", File.WRITE) == OK:
+			json_file.store_line(hw_node_json)
 			json_file.close()
 		else:
 			return false
