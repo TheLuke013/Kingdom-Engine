@@ -15,7 +15,8 @@ func _on_ToolButton_gui_input(event):
 		if event.is_pressed() and event.get_button_index() == 1:
 			if types == TYPES.run:
 				var run_game = run_game_script.new()
-				run_game.run_game()
+				var data = KeEngine.current_project_data["project_properties"]
+				run_game.run_game(data["project_name"], data["window_width"], data["window_height"])
 
 func _on_ToolButton_mouse_entered():
 	color = "#4c3575"

@@ -32,14 +32,16 @@ func load_project(kep_file_path):
 				#carrega propriedades do projeto
 				#e salva nos membros da classe
 				if proj_prop:
-					project["project_name"] = proj_prop["project_name"]
-					project["project_path"] = proj_prop["project_path"]
-					project["window_name"] = proj_prop["window_name"]
-					project["window_width"] = proj_prop["window_width"]
-					project["window_height"] = proj_prop["window_height"]
+					var project_prop = project["project_properties"]
+					project_prop["project_name"] = proj_prop["project_name"]
+					project_prop["project_path"] = proj_prop["project_path"]
+					project_prop["window_name"] = proj_prop["window_name"]
+					project_prop["window_width"] = proj_prop["window_width"]
+					project_prop["window_height"] = proj_prop["window_height"]
 					
 					kep_file.close()#fecha arquivo
-					KeEngine.current_project_name = project["project_name"]
+					KeEngine.current_project_data = project
+					KeEngine.current_project_name = project["project_properties"]["project_name"]
 					print("Projeto carregado com sucesso")
 					
 					return true
@@ -92,6 +94,7 @@ func create_project(project_name: String, window_w: int, window_h: int):
 		else:
 			return false
 		
+		KeEngine.current_project_data = project
 		KeEngine.current_project_name = proj_prop["project_name"]
 		print("Projeto criado com sucesso")
 		return true

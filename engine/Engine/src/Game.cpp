@@ -14,6 +14,11 @@ bool Game::initGame(const char* windowTitle, int windowW, int windowH)
 		irr::core::dimension2d<irr::u32>(windowW, windowH),
 		16, false, false, false, 0);
 
+	//converte const char* windowTitle para wchar
+	std::wstring wideWindowTitle(windowTitle, windowTitle + strlen(windowTitle));
+	//define o titulo da janela
+	device->setWindowCaption(wideWindowTitle.c_str());
+
 	//verifica se o dispositivo foi criado com sucesso
 	if (!device)
 		return 1;

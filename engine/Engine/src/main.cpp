@@ -1,15 +1,32 @@
 #include "Game.h"
-#include <windows.h>
+#include <iostream>
 
-int main()
+const char* window_name = "";
+int window_width = 0;
+int window_height = 0;
+
+int main(int argc, char* argv[])
 {
-	HWND hwndGodot = FindWindow(L"GodotWindowClass", L"Godot Game");
-	HWND hwndProcess = CreateWindow(L"SubprocessWindowClass", L"Subprocess", WS_OVERLAPPEDWINDOW, 0, 0, 640, 480, NULL, NULL, NULL, NULL);
-
-	SetParent(hwndProcess, hwndGodot);
+	//verifica os argumentos passados
+	if (argc == 4)
+	{
+		for (int i = 0; i < argc; i++)
+		{
+			//Itera sobre os argumentos e atribui os valores as variaveis
+			window_name = argv[1];
+			window_width = std::stoi(argv[2]);
+			window_height = std::stoi(argv[3]);
+		}
+	}
+	else
+	{
+		//Imprime mensagem de erro se os argumentos passados nao forem igual a 4
+		std::cout << "Usage: " << argv[0] << " <window_name> <window_width> <window_height>" << std::endl;
+		return 1;
+	}
 
 	Game game;
-	game.initGame("My Game", 640, 480);
+	game.initGame(window_name, window_width, window_height);
 	game.startLoop();
 
 	return 0;

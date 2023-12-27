@@ -1,6 +1,7 @@
 #pragma once
 
 #include <irrlicht.h>
+#include <string>
 
 class Game
 {
