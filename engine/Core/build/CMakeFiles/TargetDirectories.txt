@@ -1,0 +1,9 @@
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/KingdomEngineCore.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/NightlyMemoryCheck.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/Experimental.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/Continuous.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/Nightly.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/PACKAGE.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/RUN_TESTS.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/arauj/OneDrive/Documentos/Kingdom Engine/engine/Core/build/CMakeFiles/ZERO_CHECK.dir

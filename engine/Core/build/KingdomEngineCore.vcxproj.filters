@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\arauj\OneDrive\Documentos\Kingdom Engine\engine\Core\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\arauj\OneDrive\Documentos\Kingdom Engine\engine\Core\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{A8239B16-5F30-3A99-B314-B1E56AE2BE94}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
