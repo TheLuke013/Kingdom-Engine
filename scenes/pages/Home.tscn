@@ -55,5 +55,6 @@ visible = false
 [node name="CreateProject" parent="." instance=ExtResource( 6 )]
 visible = false
 
+[connection signal="visibility_changed" from="." to="." method="_on_Home_visibility_changed"]
 [connection signal="gui_input" from="Panel/VBoxContainer/New" to="." method="_on_New_gui_input"]
 [connection signal="gui_input" from="Panel/VBoxContainer/Open" to="." method="_on_Open_gui_input"]

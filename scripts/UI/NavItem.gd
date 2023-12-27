@@ -4,6 +4,8 @@ export(StreamTexture) var icon
 export var label = "Home"
 export var active = false
 export(NodePath) var page
+
+var page_name
  
 func _ready():
 	$Icon.texture = icon

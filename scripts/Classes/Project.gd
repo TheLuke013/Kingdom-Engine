@@ -3,11 +3,13 @@ extends Node
 class_name EngineProject
 
 var project: Dictionary = {
-	"project_name": "",
-	"project_path": "",
-	"window_name": "",
-	"window_width": 0,
-	"window_height": 0
+	"project_properties": {
+		"project_name": "",
+		"project_path": "",
+		"window_name": "",
+		"window_width": 0,
+		"window_height": 0
+	}
 }
 
 func load_project(kep_file_path):
@@ -30,13 +32,14 @@ func load_project(kep_file_path):
 				#carrega propriedades do projeto
 				#e salva nos membros da classe
 				if proj_prop:
-					project["project_name"] = proj_prop["name"]
-					project["project_path"] = proj_prop["path"]
+					project["project_name"] = proj_prop["project_name"]
+					project["project_path"] = proj_prop["project_path"]
 					project["window_name"] = proj_prop["window_name"]
 					project["window_width"] = proj_prop["window_width"]
 					project["window_height"] = proj_prop["window_height"]
 					
 					kep_file.close()#fecha arquivo
+					KeEngine.current_project_name = project["project_name"]
 					print("Projeto carregado com sucesso")
 					
 					return true
@@ -58,19 +61,40 @@ func create_project(project_name: String, window_w: int, window_h: int):
 	
 	#verifica se existe a pasta de projetos criados na engine
 	if not folder.dir_exists(engine_project_folder):
-		#caminho completo para a pasta de destino
-		#da criacao do projeto
-		print("Nao existia pasta de projetos, mas foi criado")
-		var target_project_folder = engine_project_folder + project_name
-		print(target_project_folder)
+		#cria pasta dos projetos da engine
+		folder.make_dir(engine_project_folder)
+	
+	#caminho completo para a pasta de destino
+	#da criacao do projeto
+	var target_project_folder = engine_project_folder + project_name
+	print(target_project_folder)
 		
-		if not folder.dir_exists(target_project_folder):
-			var error = folder.make_dir(target_project_folder)
-			print("Projeto criado com sucesso")
-			return true
+	if not folder.dir_exists(target_project_folder):
+		#cria pasta do projeto
+		folder.make_dir(target_project_folder)
+		
+		#salva dados do projeto nos membros da classe
+		var proj_prop = project["project_properties"]
+		proj_prop["project_name"] = project_name
+		proj_prop["project_path"] = target_project_folder
+		proj_prop["window_name"] = project_name
+		proj_prop["window_width"] = window_w
+		proj_prop["window_height"] = window_h
+		
+		#salva dados do projeto
+		var json_string = JSON.print(project, "    ")
+		var json_file = File.new()
+		
+		#salva dados do projeto no arquivo KEP
+		if json_file.open(target_project_folder + "/project.kep", File.WRITE) == OK:
+			json_file.store_line(json_string)
+			json_file.close()
 		else:
-			print("Ja existe um projeto com esse nome: ", project_name)
 			return false
+		
+		KeEngine.current_project_name = proj_prop["project_name"]
+		print("Projeto criado com sucesso")
+		return true
 	else:
-		print("Ja existe pasta de projetos")
+		print("Ja existe um projeto com esse nome: ", project_name)
 		return false

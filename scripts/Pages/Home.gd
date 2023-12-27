@@ -16,3 +16,8 @@ func _on_New_gui_input(event):
 func _on_Open_gui_input(event):
 	if is_left_mouse_click(event) and not $CreateProject.visible:
 		$OpenProject.visible = true
+
+func _on_Home_visibility_changed():
+	#muda o titulo da janela para o nome da pagina
+	if visible:
+		KeEngine.current_page = "Home"
