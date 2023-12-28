@@ -18,13 +18,15 @@ SceneManager* SceneManager::GetInstance()
 //inicializa a classe
 void SceneManager::InitClass(irr::IrrlichtDevice* device)
 {
-    scene_manager = device->getSceneManager();
+    sceneManager = device->getSceneManager();
 }
 
 //chama funcao para desenhar na tela
 void SceneManager::Draw()
 {
-    scene_manager->drawAll();
+    
+
+    sceneManager->drawAll();
 }
 
 //cria uma nova cena e adiciona ao vector das cenas
@@ -38,4 +40,21 @@ void SceneManager::CreateNewScene()
 void SceneManager::AddScene(Scene* newScene)
 {
     scenes.push_back(newScene);
+}
+
+//carrega a cena principal do jogo
+void SceneManager::LoadMainScene(std::string sceneFile)
+{
+    std::string fileName = sceneFile + ".scene";
+    std::cout << fileName << std::endl;
+}
+
+//carrega todas as cenas do diretorio do projeto
+void SceneManager::LoadScenes(std::string projectPath)
+{
+    std::vector<std::string> sceneFiles = GetFilesWithExtension(projectPath, ".scene");
+    for (int i = 0; i < sceneFiles.size(); i++)
+    {
+        std::cout << sceneFiles.at(i) << std::endl;
+    }
 }

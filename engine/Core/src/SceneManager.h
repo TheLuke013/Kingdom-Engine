@@ -3,16 +3,20 @@
 
 #include "../../ThirdParty/Irrlicht/include/irrlicht.h"
 #include "Scene.h"
+#include "Utils.h"
 #include <vector>
+#include <iostream>
 
 class SceneManager
 {
 private:
     static SceneManager* instance; //instancia da classe
 
-    irr::scene::ISceneManager* scene_manager;
+    irr::scene::ISceneManager* sceneManager;
     std::vector<Scene*> scenes; //armazena ponteiros para as cenas
     Scene* currentScene;
+
+    Scene* mainScene;
 
 public:
     ~SceneManager();
@@ -25,6 +29,10 @@ public:
     Scene* GetCurrentScene();
     void CreateNewScene();
     void AddScene(Scene* newScene);
+
+    void LoadMainScene(std::string sceneFile);
+    void LoadScenes(std::string projectPath);
+
 };
 
 #endif

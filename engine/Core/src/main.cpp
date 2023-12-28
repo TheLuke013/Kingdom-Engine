@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <fstream>
 
 std::string projectPath; //caminho do diretorio do projeto
 
@@ -10,34 +9,16 @@ bool LoadGameConfig()
 {
     //constroi o caminho para o arquivo project.kep
     std::string projectFile = projectPath + "project.kep";
-    std::cout << projectFile << std::endl;
 
     //verifica se foi possivel abrir o arquivo
-    std::ifstream configFile(projectFile);
-    if (!configFile.is_open())
+    if (!OpenEngineFile(projectFile))
     {
-        return false;
+        return 1;
     }
 
-    std::string line; //linhas de texto do arquivo
-    while (std::getline(configFile, line))
-    {
-        //verifica se a linha nao esta vazia ou é comentario
-        if (!line.empty() && line[0] != '#')
-        {
-            size_t equalsPos = line.find('=');
-            if (equalsPos != std::string::npos)
-            {
-                std::string key = line.substr(0, equalsPos);
-                std::string value = line.substr(equalsPos + 1);
-
-                configData[key] = value;
-            }
-        }
-    }
-
-    configFile.close();//fecha o arquivo
-
+    //le o arquivo e armazena os dados do projeto
+    ReadEngineFile(projectFile, configData);
+    
     return true;
 }
 
@@ -68,7 +49,7 @@ int main(int argc, char *argv[])
     Game game; //instancia do jogo
 	
     //carrega os dados do jogo
-    if (!game.LoadData(configData))
+    if (!game.LoadData(configData, projectPath))
     {
         std::cerr << "Erro ao carregar os dados do jogo" << std::endl;
         return 1;
