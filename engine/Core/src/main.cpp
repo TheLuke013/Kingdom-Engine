@@ -1,16 +1,19 @@
 #include "Game.h"
 #include <fstream>
 
-std::string CONFIG_FILE_PATH; //caminho do arquivo de configuracao
+std::string projectPath; //caminho do diretorio do projeto
 
 std::map<std::string, std::string> configData;
 
 //carrega os dados de configuracao do jogo
 bool LoadGameConfig()
 {
-    std::ifstream configFile(CONFIG_FILE_PATH);
+    //constroi o caminho para o arquivo project.kep
+    std::string projectFile = projectPath + "project.kep";
+    std::cout << projectFile << std::endl;
 
     //verifica se foi possivel abrir o arquivo
+    std::ifstream configFile(projectFile);
     if (!configFile.is_open())
     {
         return false;
@@ -43,10 +46,16 @@ int main(int argc, char *argv[])
     //verifica se ha argumento para o arquivo de dados do jogo
     if (argc == 2)
     {
-        CONFIG_FILE_PATH = argv[1];
+        projectPath = argv[1];
+        if (projectPath.empty())
+        {
+            std::cerr << "Caminho do projeto nao especificado" << std::endl;
+            return 1;
+        }
+
         if (!LoadGameConfig())
         {
-            std::cerr << "Erro ao abrir arquivo de config. do projeto." << std::endl;
+            std::cerr << "Erro ao abrir arquivo de config. do projeto" << std::endl;
             return 1;
         }
     }

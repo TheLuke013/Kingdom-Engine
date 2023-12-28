@@ -1,0 +1,11 @@
+#titulo da janela
+Title=Game1
+
+#largura da tela
+ScreenWidth=1024
+
+#altura da tela
+ScreenHeight=600
+
+#cena principal que sera iniciada ao executar o jogo
+MainScene=Main

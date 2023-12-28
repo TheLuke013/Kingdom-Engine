@@ -1,5 +1,10 @@
 #include "Game.h"
 
+Game::Game()
+{
+	scene_manager = SceneManager::GetInstance();
+}
+
 //destrutor: libera recursos do jogo ao finalizar execucao
 Game::~Game()
 {
@@ -45,8 +50,8 @@ bool Game::InitGame()
 
 	//inicializa ponteiros para os componentes principais do dispositivo
 	driver = device->getVideoDriver(); //driver de video
-	scene_manager = device->getSceneManager(); //gerenciador de cena
 	gui_env = device->getGUIEnvironment(); //ambiente de gui
+	scene_manager->InitClass(device); //gerenciador de cenas
 
 	return true;
 }
@@ -60,7 +65,7 @@ void Game::StartLoop()
 		//limpa o frame anterior e define a cor de fundo
 		driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
 
-		scene_manager->drawAll(); //desenha todos os objetos na cena
+		scene_manager->Draw(); //desenha todos os objetos da cena atual
 		gui_env->drawAll(); //desenha todos os elementos da interface grafica (gui)
 
 		//finaliza o desenho do frame
