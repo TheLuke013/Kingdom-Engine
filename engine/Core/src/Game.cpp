@@ -6,20 +6,40 @@ Game::~Game()
 	device->drop();
 }
 
+//carrega os dados do jogo
+bool Game::LoadData(const std::map<std::string, std::string> &gameConfigData)
+{
+	if (gameConfigData.find("Title") == gameConfigData.end() &&
+		gameConfigData.find("ScreenWidth") == gameConfigData.end() &&
+		gameConfigData.find("ScreenHeight") == gameConfigData.end())
+	{
+		std::cerr << "Erro: Chaves ausentes no arquivo de configuracao" << std::endl;
+		return false;
+	}
+
+	//carrega os dados do jogo a partir do map
+	windowTitle = gameConfigData.at("Title");
+	windowWidth = std::stoi(gameConfigData.at("ScreenWidth"));
+	windowHeight = std::stoi(gameConfigData.at("ScreenHeight"));
+
+	return true;
+}
+
 //inicializa o jogo
-bool Game::initGame(const char* windowTitle, int windowW, int windowH)
+bool Game::InitGame()
 {
 	//cria o dispositivo da engine com o driver de sofware
 	device = irr::createDevice(irr::video::EDT_SOFTWARE,
-		irr::core::dimension2d<irr::u32>(windowW, windowH),
+		irr::core::dimension2d<irr::u32>(windowWidth, windowHeight),
 		16, false, false, false, 0);
 
 	//verifica se o dispositivo foi criado com sucesso
 	if (!device)
 		return 1;
 
-    //converte const char* windowTitle para wchar
-	std::wstring wideWindowTitle(windowTitle, windowTitle + strlen(windowTitle));
+    //converte std::string windowTitle para wchar_t
+	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+	std::wstring wideWindowTitle = converter.from_bytes(windowTitle);
 	//define o titulo da janela
 	device->setWindowCaption(wideWindowTitle.c_str());
 
@@ -32,7 +52,7 @@ bool Game::initGame(const char* windowTitle, int windowW, int windowH)
 }
 
 //inicializa o loop principal do jogo
-void Game::startLoop()
+void Game::StartLoop()
 {
 	//enquanto o dispositivo estiver em execucao
 	while (device->run())
