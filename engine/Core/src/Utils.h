@@ -115,4 +115,18 @@ inline std::vector<std::string> GetFilesWithExtension(const std::string& path, c
     return files;
 }
 
+inline std::string ExtractScriptNameFromPath(const std::string& path)
+{
+    //procura a ultima barra invertida no caminho
+    size_t lastSlash = path.find_last_of("/\\");
+    //extrai o nome do arquivo apos ultima barra invertida
+    std::string fileName = (lastSlash != std::string::npos) ? path.substr(lastSlash + 1) : path;
+    //procura o ponto/.nome_da_extensao do arquivo
+    size_t lastDot = fileName.find_last_of(".");
+    //extrai o nome do arquivo antes da extensao dele
+    std::string scriptName = (lastDot != std::string::npos) ? fileName.substr(0, lastDot) : fileName;
+
+    return scriptName;
+}
+
 #endif

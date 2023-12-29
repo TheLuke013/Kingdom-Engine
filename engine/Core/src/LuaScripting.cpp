@@ -1,12 +1,14 @@
 #include "LuaScripting.h"
 
-LuaScripting::LuaScripting() : L(luaL_newstate())
+//construtor
+LuaScripting::LuaScripting() : L(nullptr)
 {
+    L = luaL_newstate();
     //abre bibliotecas padrao do Lua
     luaL_openlibs(L);
-    std::cout << "Lua iniciado" << std::endl;
 }
 
+//destrutor
 LuaScripting::~LuaScripting()
 {
     //fecha o Lua e libera os recursos associados

@@ -1,4 +1,5 @@
 #nome da cena
 Name=Main
 
-Script=Script1
+#script associado a cena
+Script=DrawShapes

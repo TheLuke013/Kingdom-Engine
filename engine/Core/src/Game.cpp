@@ -16,6 +16,7 @@ bool Game::LoadData(const std::map<std::string, std::string> &gameConfigData, st
 {
 	this->projectPath = projectPath;
 
+	//verifica se o arquivo project.kep possui as chaves essenciais
 	if (gameConfigData.find("Title") == gameConfigData.end() &&
 		gameConfigData.find("ScreenWidth") == gameConfigData.end() &&
 		gameConfigData.find("ScreenHeight") == gameConfigData.end() &&
@@ -32,9 +33,34 @@ bool Game::LoadData(const std::map<std::string, std::string> &gameConfigData, st
 	windowHeight = std::stoi(gameConfigData.at("ScreenHeight"));
 	mainSceneName = gameConfigData.at("MainScene");
 	bgColor = ParseBackgroundColor(gameConfigData.at("BackgroundColor"));
-	std::cout << gameConfigData.at("BackgroundColor") << std::endl;
+
+	//registra todos scripts presentes no projeto
+	if (!RegisterScripts())
+	{
+		std::cerr << "Erro ao carregar e registrar os scripts" << std::endl;
+		return false;
+	}
 
 	return true;
+}
+
+//registra o caminho de todos scripts existentes no diretorio do projeto
+bool Game::RegisterScripts()
+{
+	//armazena caminho de todos arquivos com extensao .lua
+    scriptPaths = GetFilesWithExtension(projectPath, ".lua");
+    //itera sobre todos os caminhos do vector
+    for (const auto& scriptPath : scriptPaths)
+    {
+        //verifica se o arquivo é valido para ser aberto
+        if (!OpenEngineFile(scriptPath))
+        {
+            return false;
+        }
+		scriptNames[ExtractScriptNameFromPath(scriptPath)] = scriptPath;
+    }
+
+    return true;
 }
 
 //inicializa o jogo
@@ -57,14 +83,14 @@ bool Game::InitGame()
 	sceneManager->InitClass(device); //gerenciador de cenas
 
 	//carrega todas as cenas
-	if (!sceneManager->LoadScenes(projectPath))
+	if (!sceneManager->LoadScenes(projectPath, scriptNames))
 	{
 		return false;
 	}
 
 	//define a cena principal
 	sceneManager->LoadMainScene(mainSceneName);
-	luaScript.ExecuteScript(projectPath + "Script.lua");
+	sceneManager->GetCurrentScene()->Start(); //executa a funcao start do script
 
 	return true;
 }
@@ -79,6 +105,7 @@ void Game::StartLoop()
 		driver->beginScene(true, true, irr::video::SColor(bgColor.red, bgColor.green, bgColor.blue, bgColor.alpha));
 
 		sceneManager->RunCurrentScene(); //desenha todos os objetos da cena atual
+		sceneManager->GetCurrentScene()->Update();
 		guiEnv->drawAll(); //desenha todos os elementos da interface grafica (gui)
 
 		//finaliza o desenho do frame

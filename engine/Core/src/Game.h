@@ -9,7 +9,6 @@
 
 #include "SceneManager.h"
 #include "Utils.h"
-#include "LuaScripting.h"
 
 class Game
 {
@@ -19,14 +18,15 @@ private:
 	int windowWidth;
 	int windowHeight;
 
-	std::string mainSceneName;
-	std::string projectPath;
+	std::string mainSceneName; //nome da cena principal
+	std::string projectPath; //caminho do sistema ao diretorio do projeto
+	std::vector<std::string> scriptPaths;
+	std::map<std::string, std::string> scriptNames;
 
 	Color bgColor; //cor de fundo
 
 	//Engine classes
 	SceneManager* sceneManager;
-	LuaScripting luaScript;
 
 	//Irrlicht
     irr::IrrlichtDevice* device;
@@ -37,6 +37,7 @@ public:
 	Game();
     ~Game();
 	bool LoadData(const std::map<std::string, std::string> &gameConfigData, std::string projectPath);
+	bool RegisterScripts();
 	bool InitGame();
 	void StartLoop();
 };

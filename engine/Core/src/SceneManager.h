@@ -42,7 +42,7 @@ public:
     void CreateNewScene(std::string sceneName);
     void AddScene(Scene* newScene);
     void LoadMainScene(std::string mainSceneName);
-    bool LoadScenes(std::string projectPath);
+    bool LoadScenes(std::string projectPath, std::map<std::string, std::string>& scriptNames);
     void RunCurrentScene();
 
 };

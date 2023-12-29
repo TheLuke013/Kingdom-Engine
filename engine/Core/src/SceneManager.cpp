@@ -32,6 +32,12 @@ void SceneManager::Draw()
     }
 }
 
+//obtem a cena atual
+Scene* SceneManager::GetCurrentScene()
+{
+    return currentScene;
+}
+
 //obtem uma classe pelo nome da cena
 Scene* SceneManager::GetScene(std::string sceneName)
 {
@@ -67,7 +73,7 @@ void SceneManager::LoadMainScene(std::string mainSceneName)
 }
 
 //carrega todas as cenas do diretorio do projeto
-bool SceneManager::LoadScenes(std::string projectPath)
+bool SceneManager::LoadScenes(std::string projectPath, std::map<std::string, std::string>& scriptNames)
 {
     //vector que ira armazenar os caminhos dos arquivos de cena
     std::vector<std::string> sceneFiles = GetFilesWithExtension(projectPath, ".scene");
@@ -91,6 +97,28 @@ bool SceneManager::LoadScenes(std::string projectPath)
 	    }
         //cria a cena
         CreateNewScene(sceneData.at("Name"));
+
+        //verifica se a cena possui um script associado
+        if (sceneData.find("Script") != sceneData.end())
+        {
+            std::string scriptPath; //armazena o path do script
+            //procura o script que esta associado ao da cena
+            for (const auto& scriptName : scriptNames)
+            {
+                if (scriptName.first == sceneData["Script"])
+                {
+                    scriptPath = scriptName.second;
+                    break; //para o loop ao encontrar o script associado
+                }
+            }
+            //atribui o script a cena
+            GetScene(sceneData["Name"])->SetScript(scriptPath);
+            std::cout << "A cena " << sceneData.at("Name") << " Possui um script" << std::endl;
+        }
+        else
+        {
+            std::cout << "A cena " << sceneData.at("Name") << " Nao possui um script" << std::endl;
+        }
     }
 
     return true;
