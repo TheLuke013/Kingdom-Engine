@@ -55,7 +55,13 @@ bool Game::InitGame()
 	sceneManager->InitClass(device); //gerenciador de cenas
 
 	//carrega todas as cenas
-	sceneManager->LoadScenes(projectPath);
+	if (!sceneManager->LoadScenes(projectPath))
+	{
+		return false;
+	}
+
+	//define a cena principal
+	sceneManager->LoadMainScene(mainSceneName);
 
 	return true;
 }
@@ -69,7 +75,7 @@ void Game::StartLoop()
 		//limpa o frame anterior e define a cor de fundo
 		driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
 
-		sceneManager->Draw(); //desenha todos os objetos da cena atual
+		sceneManager->RunCurrentScene(); //desenha todos os objetos da cena atual
 		guiEnv->drawAll(); //desenha todos os elementos da interface grafica (gui)
 
 		//finaliza o desenho do frame

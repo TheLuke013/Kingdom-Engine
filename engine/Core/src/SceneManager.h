@@ -14,8 +14,8 @@ private:
 
     irr::scene::ISceneManager* sceneManager;
     std::vector<Scene*> scenes; //armazena ponteiros para as cenas
-    Scene* currentScene;
 
+    Scene* currentScene;
     Scene* mainScene;
 
 public:
@@ -26,12 +26,15 @@ public:
     void InitClass(irr::IrrlichtDevice* device);
     void Draw();
 
+    //getters e setters
     Scene* GetCurrentScene();
-    void CreateNewScene();
-    void AddScene(Scene* newScene);
+    Scene* GetScene(std::string sceneName);
 
-    void LoadMainScene(std::string sceneFile);
-    void LoadScenes(std::string projectPath);
+    void CreateNewScene(std::string sceneName);
+    void AddScene(Scene* newScene);
+    void LoadMainScene(std::string mainSceneName);
+    bool LoadScenes(std::string projectPath);
+    void RunCurrentScene();
 
 };
 

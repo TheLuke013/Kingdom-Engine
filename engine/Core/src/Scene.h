@@ -2,15 +2,19 @@
 #define SCENE_H
 
 #include "../../ThirdParty/Irrlicht/include/irrlicht.h"
+#include <string>
 
 class Scene
 {
 private:
     irr::scene::ISceneNode* rootNode;
 
-public:
-    Scene();
+    std::string sceneName;
 
+public:
+    Scene(std::string sceneName);
+
+    std::string GetSceneName();
 };
 
 #endif

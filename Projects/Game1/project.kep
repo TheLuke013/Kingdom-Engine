@@ -8,5 +8,5 @@ ScreenWidth=1024
 ScreenHeight=600
 
 #cena principal que sera iniciada ao executar o jogo
-MainScene=Main
+MainScene=Scene2
 
