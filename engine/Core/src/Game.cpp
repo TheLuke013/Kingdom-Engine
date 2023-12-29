@@ -64,6 +64,7 @@ bool Game::InitGame()
 
 	//define a cena principal
 	sceneManager->LoadMainScene(mainSceneName);
+	luaScript.ExecuteScript(projectPath + "Script.lua");
 
 	return true;
 }

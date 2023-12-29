@@ -12,6 +12,7 @@ file(GLOB SOURCE_FILES "src/*.cpp")
 add_executable(KingdomEngineCore ${SOURCE_FILES})
 
 target_link_libraries(KingdomEngineCore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/Irrlicht/lib/Irrlicht.lib)
+target_link_libraries(KingdomEngineCore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../ThirdParty/Lua542/lib/lua54.lib)
 
 add_custom_command(TARGET KingdomEngineCore POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_if_different

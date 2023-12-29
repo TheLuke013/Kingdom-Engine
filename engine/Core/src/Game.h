@@ -9,6 +9,7 @@
 
 #include "SceneManager.h"
 #include "Utils.h"
+#include "LuaScripting.h"
 
 class Game
 {
@@ -25,6 +26,7 @@ private:
 
 	//Engine classes
 	SceneManager* sceneManager;
+	LuaScripting luaScript;
 
 	//Irrlicht
     irr::IrrlichtDevice* device;
