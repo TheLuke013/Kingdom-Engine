@@ -4,17 +4,6 @@ SceneManager* SceneManager::instance = nullptr;
 
 SceneManager::~SceneManager() {}
 
-//retorna instancia global da classe
-SceneManager* SceneManager::GetInstance()
-{
-    if (instance == nullptr)
-    {
-        instance = new SceneManager();
-    }
-
-    return instance;
-}
-
 //inicializa a classe
 void SceneManager::InitClass(irr::IrrlichtDevice* device)
 {
@@ -24,12 +13,23 @@ void SceneManager::InitClass(irr::IrrlichtDevice* device)
 //chama funcao para desenhar na tela
 void SceneManager::Draw()
 {
+    //verifica se ha uma cena principal definida
     if (mainScene == nullptr)
     {
-        std::cerr << "Nao ha nenhuma cena principal definida" << std::endl;
+        std::cerr << "Nenhuma cena principal definida" << std::endl;
     }
-
-    sceneManager->drawAll();
+    else
+    {
+        //verifica se ha uma cena atual definida
+        if (currentScene)
+        {
+            currentScene->DrawScene();
+        }
+        else
+        {
+            std::cerr << "Nenhuma cena atual definida" << std::endl;
+        }
+    }
 }
 
 //obtem uma classe pelo nome da cena
@@ -63,6 +63,7 @@ void SceneManager::AddScene(Scene* newScene)
 void SceneManager::LoadMainScene(std::string mainSceneName)
 {
     mainScene = GetScene(mainSceneName);
+    currentScene = mainScene;
 }
 
 //carrega todas as cenas do diretorio do projeto
@@ -71,16 +72,16 @@ bool SceneManager::LoadScenes(std::string projectPath)
     //vector que ira armazenar os caminhos dos arquivos de cena
     std::vector<std::string> sceneFiles = GetFilesWithExtension(projectPath, ".scene");
     //itera sobre todos os caminhos do vector
-    for (int i = 0; i < sceneFiles.size(); i++)
+    for (const auto& sceneFile : sceneFiles)
     {
         //verifica se pode abrir o arquivo para leitura
-        if (!OpenEngineFile(sceneFiles.at(i)))
+        if (!OpenEngineFile(sceneFile))
         {
             return false;
         }
         //map que ira armazenar dados da cena carregada
         std::map<std::string, std::string> sceneData;
-        ReadEngineFile(sceneFiles.at(i), sceneData); //le dados e armazena valores
+        ReadEngineFile(sceneFile, sceneData); //le dados e armazena valores
 
         //verifica se todas chaves essenciais estao presentes
         if (sceneData.find("Name") == sceneData.end())

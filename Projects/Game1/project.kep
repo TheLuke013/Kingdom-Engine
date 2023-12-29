@@ -10,3 +10,5 @@ ScreenHeight=600
 #cena principal que sera iniciada ao executar o jogo
 MainScene=Scene2
 
+#cor de fundo
+BackgroundColor=RGBA(255, 0, 0, 0)

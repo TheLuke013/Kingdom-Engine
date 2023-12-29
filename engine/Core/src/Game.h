@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <cassert>
 #include "../../ThirdParty/Irrlicht/include/irrlicht.h"
 
 #include "SceneManager.h"
@@ -19,6 +20,8 @@ private:
 
 	std::string mainSceneName;
 	std::string projectPath;
+
+	Color bgColor; //cor de fundo
 
 	//Engine classes
 	SceneManager* sceneManager;

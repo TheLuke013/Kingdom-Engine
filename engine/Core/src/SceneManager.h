@@ -21,7 +21,16 @@ private:
 public:
     ~SceneManager();
 
-    static SceneManager* GetInstance(); //obtem instancia da classe
+    //retorna instancia global da classe
+    static SceneManager* GetInstance()
+    {
+        if (instance == nullptr)
+        {
+            instance = new SceneManager();
+        }
+
+        return instance;
+    }
 
     void InitClass(irr::IrrlichtDevice* device);
     void Draw();

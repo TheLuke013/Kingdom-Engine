@@ -15,6 +15,7 @@ public:
     Scene(std::string sceneName);
 
     std::string GetSceneName();
+    void DrawScene();
 };
 
 #endif

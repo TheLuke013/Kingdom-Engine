@@ -7,7 +7,49 @@
 #include <vector>
 #include <filesystem>
 #include <Windows.h>
+#include <sstream>
+#include <iostream>
 
+//estrutura de cores RGBA
+struct Color
+{
+    int red;
+    int green;
+    int blue;
+    int alpha;
+};
+
+//converte string com dados de cor RBGA para um struct Color
+inline Color ParseBackgroundColor(const std::string& colorString)
+{
+    Color backgroundColor;
+    //remove os parenteses da string
+    std::string trimmedString = colorString.substr(colorString.find("(") + 1,
+                                colorString.find(")") - colorString.find("(") - 1);
+    
+    std::istringstream colorStream(trimmedString);
+    std::string colorPart;
+
+    //parse para red
+    std::getline(colorStream, colorPart, ',');
+    backgroundColor.red = std::stoi(colorPart);
+
+    //parse para green
+    std::getline(colorStream, colorPart, ',');
+    backgroundColor.green = std::stoi(colorPart);
+
+    //parse para blue
+    std::getline(colorStream, colorPart, ',');
+    backgroundColor.blue = std::stoi(colorPart);
+
+    //parse para alpha
+    std::getline(colorStream, colorPart, ',');
+    backgroundColor.alpha = std::stoi(colorPart);
+
+    return backgroundColor;
+}
+
+//converte um dado do tipo std::string para wchar
 inline const wchar_t* ConvertStringToWChar(const std::string& string)
 {
     static std::wstring wideString;

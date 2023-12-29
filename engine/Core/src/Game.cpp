@@ -19,7 +19,8 @@ bool Game::LoadData(const std::map<std::string, std::string> &gameConfigData, st
 	if (gameConfigData.find("Title") == gameConfigData.end() &&
 		gameConfigData.find("ScreenWidth") == gameConfigData.end() &&
 		gameConfigData.find("ScreenHeight") == gameConfigData.end() &&
-		gameConfigData.find("MainScene") == gameConfigData.end())
+		gameConfigData.find("MainScene") == gameConfigData.end() &&
+		gameConfigData.find("BackgroundColor") == gameConfigData.end())
 	{
 		std::cerr << "Erro: Chaves ausentes no arquivo de configuracao" << std::endl;
 		return false;
@@ -30,6 +31,8 @@ bool Game::LoadData(const std::map<std::string, std::string> &gameConfigData, st
 	windowWidth = std::stoi(gameConfigData.at("ScreenWidth"));
 	windowHeight = std::stoi(gameConfigData.at("ScreenHeight"));
 	mainSceneName = gameConfigData.at("MainScene");
+	bgColor = ParseBackgroundColor(gameConfigData.at("BackgroundColor"));
+	std::cout << gameConfigData.at("BackgroundColor") << std::endl;
 
 	return true;
 }
@@ -43,8 +46,7 @@ bool Game::InitGame()
 		16, false, false, false, 0);
 
 	//verifica se o dispositivo foi criado com sucesso
-	if (!device)
-		return 1;
+	assert(device && "Erro: Falha ao criar o dispositivo da engine");
 
 	//define o titulo da janela
 	device->setWindowCaption(ConvertStringToWChar(windowTitle));
@@ -73,7 +75,7 @@ void Game::StartLoop()
 	while (device->run())
 	{
 		//limpa o frame anterior e define a cor de fundo
-		driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
+		driver->beginScene(true, true, irr::video::SColor(bgColor.red, bgColor.green, bgColor.blue, bgColor.alpha));
 
 		sceneManager->RunCurrentScene(); //desenha todos os objetos da cena atual
 		guiEnv->drawAll(); //desenha todos os elementos da interface grafica (gui)
