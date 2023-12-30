@@ -1,14 +1,29 @@
 # Project
 
-## File structure
-```json
-{
-    "project_properties": {
-        "project_name": "My Project",
-        "project_path": "C:/Users/user/Documents/Kingdom Projects/My Project",
-        "window_name": "Game",
-        "window_width": 1024,
-        "window_height": 600
-    }
-}
+## project.kep
+```ini
+Title=Game
+ScreenWidth=1024
+ScreenHeight=600
+MainScene=Main
+BackgroundColor=RGBA(255, 0, 0, 0)
 ```
+### Keys and values
+- `Title: std::string` <br>
+    Desription:
+    the title of the game window
+
+- `ScreenWidth: int` <br>
+  Desription: the width of the game window
+
+- `ScreenHeight: int` <br>
+  Desription:
+  the height of the game window
+
+- `MainScene: std::string` <br>
+  Desription:
+  main scene that will start when running the game
+
+- `BackgroundColor: Color{int r, int g, int b, int a}` <br>
+  Desription:
+  the background color of the game window

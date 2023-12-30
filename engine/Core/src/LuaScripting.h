@@ -2,7 +2,10 @@
 #define LUA_SCRIPTING_H
 
 #include "../../ThirdParty/Lua542/include/lua.hpp"
+#include "../../ThirdParty/LuaBridge/LuaBridge.h"
 #include <iostream>
+
+#include "LuaFunctions.h"
 
 class LuaScripting
 {
@@ -14,19 +17,7 @@ public:
     ~LuaScripting();
 
     bool ExecuteScript(const std::string& fileName);
-
-    //registra uma funcao em Lua
-    template<typename Function>
-    void RegisterFunction(const std::string& functionName, Function function)
-    {
-        lua_pushcfunction(L, +[](lua_State* L) -> int {
-            auto func = reinterpret_cast<Function>(lua_touserdata(L, lua_upvalueindex(1)));
-            return func(L);
-        });
-
-        lua_pushlightuserdata(L, reinterpret_cast<void*>(function));
-        lua_setglobal(L, functionName.c_str());
-    }
+    void RegisterFunctionsInLua();
 
     //chama uma funcao no script Lua
     template<typename Dummy = void, typename... Args>

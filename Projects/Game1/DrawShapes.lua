@@ -1,7 +1,7 @@
 function Start()
-    print("Funcao Start executada")
+    local algo = Prompt("Digite algo: ")
+    Print(algo)
 end
 
 function Update()
-    print("Updating o game")
 end

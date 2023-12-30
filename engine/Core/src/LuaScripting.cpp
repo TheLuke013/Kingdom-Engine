@@ -27,3 +27,17 @@ bool LuaScripting::ExecuteScript(const std::string& fileName)
 
     return true;
 }
+
+int HelloWorld(lua_State* L)
+{
+    std::cout << "Hello World" << std::endl;
+    return 0;
+}
+
+//registra as funcoes da api da engine em lua
+void LuaScripting::RegisterFunctionsInLua()
+{
+    luabridge::getGlobalNamespace(L)
+                                .addCFunction("Print", &LuaFunctions::Print)
+                                .addCFunction("Prompt", &LuaFunctions::Prompt);
+}

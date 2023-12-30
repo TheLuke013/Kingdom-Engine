@@ -4,7 +4,10 @@
 LuaScripting* Scene::luaScript = new LuaScripting();
 
 //construtor da classe
-Scene::Scene(std::string sceneName) : sceneName(sceneName) {}
+Scene::Scene(std::string sceneName) : sceneName(sceneName)
+{
+    luaScript->RegisterFunctionsInLua();
+}
 
 //destrutor da classe
 Scene::~Scene()
