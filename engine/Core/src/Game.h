@@ -9,29 +9,23 @@
 
 #include "SceneManager.h"
 #include "Utils.h"
+#include "Window.h"
 
 class Game
 {
 private:
-	//janela do jogo
-	std::string windowTitle;
-	int windowWidth;
-	int windowHeight;
+	std::map<std::string, std::string> gameConfigData; //dados de config. do jogo
 
 	std::string mainSceneName; //nome da cena principal
 	std::string projectPath; //caminho do sistema ao diretorio do projeto
 	std::vector<std::string> scriptPaths;
 	std::map<std::string, std::string> scriptNames;
 
-	Color bgColor; //cor de fundo
-
 	//Engine classes
+	Window* window;
 	SceneManager* sceneManager;
 
 	//Irrlicht
-    irr::IrrlichtDevice* device;
-	irr::video::IVideoDriver* driver;
-	irr::gui::IGUIEnvironment* guiEnv;
 
 public:
 	Game();
@@ -39,7 +33,7 @@ public:
 	bool LoadData(const std::map<std::string, std::string> &gameConfigData, std::string projectPath);
 	bool RegisterScripts();
 	bool InitGame();
-	void StartLoop();
+	void RunGame();
 };
 
 #endif

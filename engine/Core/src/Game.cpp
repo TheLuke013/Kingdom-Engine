@@ -3,12 +3,13 @@
 Game::Game()
 {
 	sceneManager = SceneManager::GetInstance();
+	window = nullptr;
 }
 
 //destrutor: libera recursos do jogo ao finalizar execucao
 Game::~Game()
 {
-	device->drop();
+	window->~Window();
 }
 
 //carrega os dados do jogo
@@ -16,23 +17,27 @@ bool Game::LoadData(const std::map<std::string, std::string> &gameConfigData, st
 {
 	this->projectPath = projectPath;
 
-	//verifica se o arquivo project.kep possui as chaves essenciais
-	if (gameConfigData.find("Title") == gameConfigData.end() &&
-		gameConfigData.find("ScreenWidth") == gameConfigData.end() &&
-		gameConfigData.find("ScreenHeight") == gameConfigData.end() &&
-		gameConfigData.find("MainScene") == gameConfigData.end() &&
-		gameConfigData.find("BackgroundColor") == gameConfigData.end())
+	//chaves essenciais do map
+	const std::vector<std::string> requiredKeys = {
+		"Title", "ScreenWidth", "ScreenHeight", "MainScene",
+        "BackgroundColor", "FullScreen", "VSync", "FPSLimit", "DebugMode"
+	};
+
+	//itera sobre os requiredKeys e atribui os valores das chaves ao gameConfigData da classe
+	for (const auto& key : requiredKeys)
 	{
-		std::cerr << "Erro: Chaves ausentes no arquivo de configuracao" << std::endl;
-		return false;
+		if (gameConfigData.find(key) == gameConfigData.end())
+		{
+			std::cerr << "Erro: Chave ausente no arquivo de configuração: " << key << std::endl;
+			return false;
+		}
+		else
+		{
+			this->gameConfigData[key] = gameConfigData.at(key);
+		}
 	}
 
-	//carrega os dados do jogo a partir do map
-	windowTitle = gameConfigData.at("Title");
-	windowWidth = std::stoi(gameConfigData.at("ScreenWidth"));
-	windowHeight = std::stoi(gameConfigData.at("ScreenHeight"));
-	mainSceneName = gameConfigData.at("MainScene");
-	bgColor = ParseBackgroundColor(gameConfigData.at("BackgroundColor"));
+	mainSceneName = this->gameConfigData["MainScene"]; //define o nome da cena principal
 
 	//registra todos scripts presentes no projeto
 	if (!RegisterScripts())
@@ -67,20 +72,15 @@ bool Game::RegisterScripts()
 bool Game::InitGame()
 {
 	//cria o dispositivo da engine com o driver de sofware
-	device = irr::createDevice(irr::video::EDT_SOFTWARE,
-		irr::core::dimension2d<irr::u32>(windowWidth, windowHeight),
-		16, false, false, false, 0);
-
-	//verifica se o dispositivo foi criado com sucesso
-	assert(device && "Erro: Falha ao criar o dispositivo da engine");
-
-	//define o titulo da janela
-	device->setWindowCaption(ConvertStringToWChar(windowTitle));
+	window = new Window(
+		gameConfigData["Title"],
+		std::stoi(gameConfigData["ScreenWidth"]),
+		std::stoi(gameConfigData["ScreenHeight"]));
+	//define a cor de fundo da janela
+	window->SetBackgroundColor(gameConfigData["BackgroundColor"]);
 
 	//inicializa ponteiros para os componentes principais do dispositivo
-	driver = device->getVideoDriver(); //driver de video
-	guiEnv = device->getGUIEnvironment(); //ambiente de gui
-	sceneManager->InitClass(device); //gerenciador de cenas
+	sceneManager->InitClass(window->GetDevice()); //gerenciador de cenas
 
 	//carrega todas as cenas
 	if (!sceneManager->LoadScenes(projectPath, scriptNames))
@@ -89,26 +89,16 @@ bool Game::InitGame()
 	}
 
 	//define a cena principal
-	sceneManager->LoadMainScene(mainSceneName);
-	sceneManager->GetCurrentScene()->Start(); //executa a funcao start do script
+	if (!sceneManager->LoadMainScene(mainSceneName))
+	{
+		return false;
+	}
 
 	return true;
 }
 
 //inicializa o loop principal do jogo
-void Game::StartLoop()
+void Game::RunGame()
 {
-	//enquanto o dispositivo estiver em execucao
-	while (device->run())
-	{
-		//limpa o frame anterior e define a cor de fundo
-		driver->beginScene(true, true, irr::video::SColor(bgColor.red, bgColor.green, bgColor.blue, bgColor.alpha));
-
-		sceneManager->RunCurrentScene(); //desenha todos os objetos da cena atual
-		sceneManager->GetCurrentScene()->Update();
-		guiEnv->drawAll(); //desenha todos os elementos da interface grafica (gui)
-
-		//finaliza o desenho do frame
-		driver->endScene();
-	}
+	window->Run(sceneManager);
 }

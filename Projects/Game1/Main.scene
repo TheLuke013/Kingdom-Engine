@@ -2,4 +2,7 @@
 Name=Main
 
 #script associado a cena
-Script=DrawShapes
+Script=Main
+
+#nodes filhos da cena
+Nodes=[Player]

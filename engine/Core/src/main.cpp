@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-	game.StartLoop(); //inicia o loop principal
+	game.RunGame(); //inicia o loop principal
 
     return 0;
 }

@@ -7,6 +7,7 @@ LuaScripting* Scene::luaScript = new LuaScripting();
 Scene::Scene(std::string sceneName) : sceneName(sceneName)
 {
     luaScript->RegisterFunctionsInLua();
+    hasScript = false;
 }
 
 //destrutor da classe
@@ -26,6 +27,7 @@ void Scene::SetScript(const std::string& scriptPath)
 {
     this->scriptPath = scriptPath;
     luaScript->ExecuteScript(scriptPath);
+    hasScript = true;
 }
 
 //desenha a cena
@@ -37,11 +39,17 @@ void Scene::DrawScene()
 //metodo que sera chamado ao iniciar o jogo
 void Scene::Start()
 {
-    luaScript->CallLuaFunction<void>("Start");
+    if (hasScript)
+    {
+        luaScript->CallLuaFunction<void>("Start");
+    }
 }
 
 //metodo que sera chamado durante o loop do jogo
 void Scene::Update()
 {
-    luaScript->CallLuaFunction<void>("Update");
+    if (hasScript)
+    {
+        luaScript->CallLuaFunction<void>("Update");
+    }
 }

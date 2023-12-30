@@ -66,10 +66,16 @@ void SceneManager::AddScene(Scene* newScene)
 }
 
 //carrega a cena principal do jogo
-void SceneManager::LoadMainScene(std::string mainSceneName)
+bool SceneManager::LoadMainScene(std::string mainSceneName)
 {
+    if (mainSceneName == "")
+    {
+        return false;
+    }
+
     mainScene = GetScene(mainSceneName);
     currentScene = mainScene;
+    return true;
 }
 
 //carrega todas as cenas do diretorio do projeto
@@ -90,11 +96,18 @@ bool SceneManager::LoadScenes(std::string projectPath, std::map<std::string, std
         ReadEngineFile(sceneFile, sceneData); //le dados e armazena valores
 
         //verifica se todas chaves essenciais estao presentes
-        if (sceneData.find("Name") == sceneData.end())
-	    {
-		    std::cerr << "Erro: Chaves ausentes no arquivo de dados da cena" << std::endl;
-		    return false;
-	    }
+	    const std::vector<std::string> requiredKeys = {
+		    "Name"
+	    }; //chaves essenciais do map
+
+        for (const auto& key : requiredKeys)
+        {
+            if (sceneData.find(key) == sceneData.end())
+            {
+                std::cerr << "Erro: Chave ausente no arquivo de dados da cena: " << key << std::endl;
+			    return false;
+            }
+        }
         //cria a cena
         CreateNewScene(sceneData.at("Name"));
 
@@ -107,13 +120,13 @@ bool SceneManager::LoadScenes(std::string projectPath, std::map<std::string, std
             {
                 if (scriptName.first == sceneData["Script"])
                 {
+                    //atribui o script a cena
                     scriptPath = scriptName.second;
+                    GetScene(sceneData["Name"])->SetScript(scriptPath);
+                    std::cout << "A cena " << sceneData.at("Name") << " Possui um script" << std::endl;
                     break; //para o loop ao encontrar o script associado
                 }
             }
-            //atribui o script a cena
-            GetScene(sceneData["Name"])->SetScript(scriptPath);
-            std::cout << "A cena " << sceneData.at("Name") << " Possui um script" << std::endl;
         }
         else
         {
