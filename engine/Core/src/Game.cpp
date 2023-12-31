@@ -1,6 +1,8 @@
 #include "Game.h"
 
+//inicializa membros estaticos
 Window* Game::window = nullptr;
+SceneManager* Game::sceneManager = nullptr;
 
 Game::Game()
 {
@@ -96,6 +98,8 @@ bool Game::InitGame()
 		return false;
 	}
 
+	std::cout << "Cena atual: " << sceneManager->GetCurrentScene()->GetSceneName() << std::endl;
+
 	return true;
 }
 
@@ -105,7 +109,14 @@ void Game::RunGame()
 	window->Run(sceneManager);
 }
 
+//obtem a janela principal
 Window* Game::GetWindow()
 {
 	return window;
+}
+
+//obtem o gerenciador de cenas da engine
+SceneManager* Game::GetSceneManager()
+{
+	return sceneManager;
 }

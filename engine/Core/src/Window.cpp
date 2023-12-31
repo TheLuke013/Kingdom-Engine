@@ -41,19 +41,13 @@ Window::~Window()
     }
 }
 
-//obtem o dispositivo
-irr::IrrlichtDevice* Window::GetDevice() const
-{
-    return device;
-}
-
 //inicializa o loop da janela e do jogo
 void Window::Run(SceneManager* sceneManager)
 {
     //verifica se device nao é nulo
     if (!device)
         return;
-    
+
     sceneManager->GetCurrentScene()->Start(); //executa a funcao start do script
 
     //enquanto o dispositivo estiver em execucao
@@ -127,4 +121,27 @@ void Window::SetSize(int width, int height)
 void Window::SetBackgroundColor(std::string RGBAColor)
 {
     bgColor = ParseBackgroundColor(RGBAColor);
+}
+
+//obtem o dispositivo
+irr::IrrlichtDevice* Window::GetDevice() const
+{
+    return device;
+}
+
+//obtem o fps atual
+int Window::GetFPS(SceneManager* sceneManager)
+{
+    //verifica se o dispositivo existe
+    if (device && device->getVideoDriver())
+    {
+        int fps = device->getVideoDriver()->getFPS();
+        if (lastFPS != fps)
+        {
+            lastFPS = fps;
+            return fps;
+        }
+    }
+
+    return 0;
 }

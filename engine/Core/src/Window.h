@@ -9,6 +9,7 @@ class Window
 {
 private:
     Color bgColor; //cor de fundo
+    int lastFPS; //ultimo fps
 
     irr::IrrlichtDevice* device;
     irr::SIrrlichtCreationParameters params; //criacao de parametros para o dispositivo
@@ -16,8 +17,6 @@ private:
 public:
     Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync);
     ~Window();
-
-    irr::IrrlichtDevice* GetDevice() const;
 
     void Run(SceneManager* sceneManager);
 
@@ -27,6 +26,10 @@ public:
     void SetTitle(std::string value);
     void SetSize(int width, int height);
     void SetBackgroundColor(std::string RGBAColor);
+
+    //getters
+    irr::IrrlichtDevice* GetDevice() const;
+    int GetFPS(SceneManager* sceneManager);
 };
 
 #endif

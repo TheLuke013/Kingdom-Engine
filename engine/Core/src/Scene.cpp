@@ -1,11 +1,9 @@
 #include "Scene.h"
 
-//inicializa a instancia estatica do lua script
-LuaScripting* Scene::luaScript = new LuaScripting();
-
 //construtor da classe
 Scene::Scene(std::string sceneName) : sceneName(sceneName)
 {
+    luaScript = new LuaScripting();
     luaScript->RegisterFunctionsInLua();
     hasScript = false;
 }

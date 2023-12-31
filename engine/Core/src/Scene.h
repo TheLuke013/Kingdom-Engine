@@ -14,7 +14,7 @@ private:
     std::string scriptPath; //caminho para o script da cena
     bool hasScript;
 
-    static LuaScripting* luaScript;
+    LuaScripting* luaScript;
 
 public:
     Scene(std::string sceneName);

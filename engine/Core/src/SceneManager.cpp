@@ -52,6 +52,12 @@ Scene* SceneManager::GetScene(std::string sceneName)
     return nullptr;
 }
 
+//obtem o gerenciador de cena Irrlicht
+irr::scene::ISceneManager* SceneManager::GetSceneManager()
+{
+    return sceneManager;
+}
+
 //cria uma nova cena e adiciona ao vector das cenas
 void SceneManager::CreateNewScene(std::string sceneName)
 {
@@ -123,7 +129,10 @@ bool SceneManager::LoadScenes(std::string projectPath, std::map<std::string, std
                     //atribui o script a cena
                     scriptPath = scriptName.second;
                     GetScene(sceneData["Name"])->SetScript(scriptPath);
-                    std::cout << "A cena " << sceneData.at("Name") << " Possui um script" << std::endl;
+                    //debuga o nome da cena e do script
+                    std::cout << "A cena " <<
+                    sceneData.at("Name") <<
+                    " Possui um script chamado: " <<sceneData.at("Script") << std::endl;
                     break; //para o loop ao encontrar o script associado
                 }
             }

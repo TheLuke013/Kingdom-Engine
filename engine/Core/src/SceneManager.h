@@ -38,6 +38,7 @@ public:
     //getters e setters
     Scene* GetCurrentScene();
     Scene* GetScene(std::string sceneName);
+    irr::scene::ISceneManager* GetSceneManager();
 
     void CreateNewScene(std::string sceneName);
     void AddScene(Scene* newScene);

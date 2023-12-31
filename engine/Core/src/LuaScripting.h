@@ -15,6 +15,8 @@ private:
     static int SetTitle(lua_State* L);
     static int SetBackgroundColor(lua_State* L);
 
+    static int GetFPS(lua_State* L);
+
 public:
     LuaScripting();
     ~LuaScripting();

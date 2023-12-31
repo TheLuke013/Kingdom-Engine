@@ -23,6 +23,13 @@ int LuaScripting::SetBackgroundColor(lua_State* L)
     return 0;
 }
 
+int LuaScripting::GetFPS(lua_State* L)
+{
+    int fps = Game::GetWindow()->GetFPS(Game::GetSceneManager());
+    lua_pushnumber(L, static_cast<lua_Number>(fps));
+    return 1;
+}
+
 //construtor
 LuaScripting::LuaScripting() : L(nullptr)
 {
@@ -47,6 +54,7 @@ bool LuaScripting::ExecuteScript(const std::string& fileName)
         std::cerr << "Erro ao executar o Lua Script:" << lua_tostring(L, -1) << std::endl;
         return false;
     }
+    std::cout << "Executando script: " << fileName << std::endl;
 
     return true;
 }
@@ -57,5 +65,6 @@ void LuaScripting::RegisterFunctionsInLua()
     luabridge::getGlobalNamespace(L)
                                 .addCFunction("window_set_vsync", &SetVSync)
                                 .addCFunction("window_set_title", &SetTitle)
-                                .addCFunction("window_set_bg_color", &SetBackgroundColor);
+                                .addCFunction("window_set_bg_color", &SetBackgroundColor)
+                                .addCFunction("get_fps", &GetFPS);
 }

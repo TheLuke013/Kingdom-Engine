@@ -23,7 +23,7 @@ private:
 
 	//Engine classes
 	static Window* window;
-	SceneManager* sceneManager;
+	static SceneManager* sceneManager;
 
 	//Irrlicht
 
@@ -36,6 +36,7 @@ public:
 	void RunGame();
 
 	static Window* GetWindow();
+	static SceneManager* GetSceneManager();
 };
 
 #endif
