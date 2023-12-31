@@ -1,9 +1,10 @@
 #include "Game.h"
 
+Window* Game::window = nullptr;
+
 Game::Game()
 {
 	sceneManager = SceneManager::GetInstance();
-	window = nullptr;
 }
 
 //destrutor: libera recursos do jogo ao finalizar execucao
@@ -75,9 +76,10 @@ bool Game::InitGame()
 	window = new Window(
 		gameConfigData["Title"],
 		std::stoi(gameConfigData["ScreenWidth"]),
-		std::stoi(gameConfigData["ScreenHeight"]));
-	//define a cor de fundo da janela
-	window->SetBackgroundColor(gameConfigData["BackgroundColor"]);
+		std::stoi(gameConfigData["ScreenHeight"]),
+		gameConfigData["BackgroundColor"],
+		std::stoi(gameConfigData["FullScreen"]),
+		std::stoi(gameConfigData["VSync"]));
 
 	//inicializa ponteiros para os componentes principais do dispositivo
 	sceneManager->InitClass(window->GetDevice()); //gerenciador de cenas
@@ -101,4 +103,9 @@ bool Game::InitGame()
 void Game::RunGame()
 {
 	window->Run(sceneManager);
+}
+
+Window* Game::GetWindow()
+{
+	return window;
 }

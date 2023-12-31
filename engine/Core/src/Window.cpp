@@ -1,13 +1,14 @@
 #include "Window.h"
 
 //construtor
-Window::Window(std::string title, int width, int height) : device(nullptr)
+Window::Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync) : device(nullptr)
 {
     params = irr::SIrrlichtCreationParameters();
     params.DriverType = irr::video::EDT_SOFTWARE; //tipo do driver
     SetSize(width, height); //resolucao da janela
-    SetFullScreen(false); //tela cheia
-    SetVSync(false); //vsync
+    SetBackgroundColor(bgColor); //define a cor de fundo da janela
+    SetFullScreen(fullscreen); //tela cheia
+    SetVSync(vsync); //vsync
     params.EventReceiver = nullptr; //receptor de eventos
 
     //cria o dispositivo da engine com params de exemplo
@@ -15,6 +16,12 @@ Window::Window(std::string title, int width, int height) : device(nullptr)
     if (!device)
     {
         throw std::runtime_error("Erro: Falha ao criar o dispositivo da engine");
+    }
+
+    //verifica se a janela esta em fullscreen e maximiza a janela
+    if (device->isFullscreen())
+    {
+        device->maximizeWindow();
     }
 
     //define o titulo da janela
@@ -76,6 +83,19 @@ void Window::Run(SceneManager* sceneManager)
 void Window::SetFullScreen(bool value)
 {
     params.Fullscreen = value;
+
+    //verifica se o dispositivo existe
+    if (device)
+    {
+        if (value)
+        {
+            device->maximizeWindow();
+        }
+        else
+        {
+            device->minimizeWindow();
+        }
+    }
 }
 
 //define/redefine o vsync da janela

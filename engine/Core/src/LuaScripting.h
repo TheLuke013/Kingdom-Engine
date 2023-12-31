@@ -5,12 +5,15 @@
 #include "../../ThirdParty/LuaBridge/LuaBridge.h"
 #include <iostream>
 
-#include "LuaFunctions.h"
-
 class LuaScripting
 {
 private:
     lua_State* L;
+
+    //funcoes Lua
+    static int SetVSync(lua_State* L);
+    static int SetTitle(lua_State* L);
+    static int SetBackgroundColor(lua_State* L);
 
 public:
     LuaScripting();

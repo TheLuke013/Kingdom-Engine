@@ -22,7 +22,7 @@ private:
 	std::map<std::string, std::string> scriptNames;
 
 	//Engine classes
-	Window* window;
+	static Window* window;
 	SceneManager* sceneManager;
 
 	//Irrlicht
@@ -34,6 +34,8 @@ public:
 	bool RegisterScripts();
 	bool InitGame();
 	void RunGame();
+
+	static Window* GetWindow();
 };
 
 #endif

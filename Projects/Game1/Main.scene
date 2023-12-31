@@ -2,7 +2,7 @@
 Name=Main
 
 #script associado a cena
-Script=Main
+Script=FlashScreen
 
 #nodes filhos da cena
 Nodes=[Player]

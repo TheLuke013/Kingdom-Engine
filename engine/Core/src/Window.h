@@ -14,7 +14,7 @@ private:
     irr::SIrrlichtCreationParameters params; //criacao de parametros para o dispositivo
 
 public:
-    Window(std::string title, int width, int height);
+    Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync);
     ~Window();
 
     irr::IrrlichtDevice* GetDevice() const;

@@ -1,4 +1,27 @@
 #include "LuaScripting.h"
+#include "Game.h"
+
+//Window functions
+int LuaScripting::SetVSync(lua_State* L)
+{
+    bool vsync = lua_toboolean(L, 1) != 0;
+    Game::GetWindow()->SetVSync(vsync);
+    return 0;
+}
+
+int LuaScripting::SetTitle(lua_State* L)
+{
+    std::string title = lua_tostring(L, 1);
+    Game::GetWindow()->SetTitle(title);
+    return 0;
+}
+
+int LuaScripting::SetBackgroundColor(lua_State* L)
+{
+    std::string bgColor = lua_tostring(L, 1);
+    Game::GetWindow()->SetBackgroundColor(bgColor);
+    return 0;
+}
 
 //construtor
 LuaScripting::LuaScripting() : L(nullptr)
@@ -28,16 +51,11 @@ bool LuaScripting::ExecuteScript(const std::string& fileName)
     return true;
 }
 
-int HelloWorld(lua_State* L)
-{
-    std::cout << "Hello World" << std::endl;
-    return 0;
-}
-
 //registra as funcoes da api da engine em lua
 void LuaScripting::RegisterFunctionsInLua()
 {
     luabridge::getGlobalNamespace(L)
-                                .addCFunction("Print", &LuaFunctions::Print)
-                                .addCFunction("Prompt", &LuaFunctions::Prompt);
+                                .addCFunction("window_set_vsync", &SetVSync)
+                                .addCFunction("window_set_title", &SetTitle)
+                                .addCFunction("window_set_bg_color", &SetBackgroundColor);
 }
