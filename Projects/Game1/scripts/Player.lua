@@ -1,6 +1,8 @@
+local player = Sprite()
+
 function Start()
+    print(player)
 end
 
 function Update()
-    print("Playerrrrrrrrrr")
 end

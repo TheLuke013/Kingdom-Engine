@@ -8,7 +8,7 @@ ScreenWidth=1024
 ScreenHeight=600
 
 #cena principal que sera iniciada ao executar o jogo
-MainScene=Scene2
+MainScene=PlayerScene
 
 #cor de fundo
 BackgroundColor=(255, 0, 0, 0)
