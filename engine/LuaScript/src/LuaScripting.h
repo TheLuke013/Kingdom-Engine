@@ -11,11 +11,12 @@ private:
     lua_State* L;
 
     //funcoes Lua
-    static int SetVSync(lua_State* L);
-    static int SetTitle(lua_State* L);
-    static int SetBackgroundColor(lua_State* L);
-
-    static int GetFPS(lua_State* L);
+    static int SetVSync(lua_State* L); //window class
+    static int SetTitle(lua_State* L); //window class
+    static int SetBackgroundColor(lua_State* L); //window class
+    static int GetFPS(lua_State* L); //window class
+    static int QuitGame(lua_State* L); //game class
+    static int ChangeScene(lua_State* L);
 
 public:
     LuaScripting();

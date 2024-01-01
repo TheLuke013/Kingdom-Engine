@@ -9,16 +9,20 @@ class Window
 {
 private:
     Color bgColor; //cor de fundo
-    int lastFPS; //ultimo fps
 
-    irr::IrrlichtDevice* device;
+    irr::IrrlichtDevice* device; //dispositivo da engine
     irr::SIrrlichtCreationParameters params; //criacao de parametros para o dispositivo
+    irr::ITimer* timer; //timer do jogo
+    irr::u32 lastFrameTime; //armazena o tempo do ultimo frame
+
+    float FPSLimit;
 
 public:
-    Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync);
+    Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync, float fpsLimit);
     ~Window();
 
     void Run(SceneManager* sceneManager);
+    void UpdateFPS();
 
     //setters
     void SetFullScreen(bool value);
@@ -29,7 +33,7 @@ public:
 
     //getters
     irr::IrrlichtDevice* GetDevice() const;
-    int GetFPS(SceneManager* sceneManager);
+    float GetFPS(SceneManager* sceneManager);
 };
 
 #endif

@@ -45,6 +45,7 @@ public:
     bool LoadMainScene(std::string mainSceneName);
     bool LoadScenes(std::string projectPath, std::map<std::string, std::string>& scriptNames);
     void RunCurrentScene();
+    bool ChangeScene(std::string sceneName);
 
 };
 

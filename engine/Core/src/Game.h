@@ -37,6 +37,7 @@ public:
 
 	static Window* GetWindow();
 	static SceneManager* GetSceneManager();
+	static void QuitGame();
 };
 
 #endif

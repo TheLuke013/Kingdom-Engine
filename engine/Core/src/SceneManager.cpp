@@ -150,3 +150,19 @@ void SceneManager::RunCurrentScene()
 {
     Draw();
 }
+
+//muda para determinda cena
+bool SceneManager::ChangeScene(std::string sceneName)
+{
+    //verifica se o nome corresponde ao nome de alguma cena existente
+    if (sceneName == GetScene(sceneName)->GetSceneName())
+    {
+        //muda para a cena especificada
+        currentScene = GetScene(sceneName);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

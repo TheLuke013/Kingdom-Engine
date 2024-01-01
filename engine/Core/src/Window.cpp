@@ -1,7 +1,7 @@
 #include "Window.h"
 
 //construtor
-Window::Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync) : device(nullptr)
+Window::Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync, float fpsLimit) : device(nullptr)
 {
     params = irr::SIrrlichtCreationParameters();
     params.DriverType = irr::video::EDT_SOFTWARE; //tipo do driver
@@ -10,6 +10,7 @@ Window::Window(std::string title, int width, int height, std::string bgColor, bo
     SetFullScreen(fullscreen); //tela cheia
     SetVSync(vsync); //vsync
     params.EventReceiver = nullptr; //receptor de eventos
+    FPSLimit = fpsLimit; //define o limite de fps
 
     //cria o dispositivo da engine com params de exemplo
     device = irr::createDeviceEx(params);
@@ -24,8 +25,9 @@ Window::Window(std::string title, int width, int height, std::string bgColor, bo
         device->maximizeWindow();
     }
 
-    //define o titulo da janela
-    SetTitle(title);
+    SetTitle(title); //define o titulo da janela
+    timer = device->getTimer(); //inicializa o timer
+    lastFrameTime = device->getTimer()->getTime(); //inicializa o lastFrameTime
 }
 
 //destrutor
@@ -48,6 +50,7 @@ void Window::Run(SceneManager* sceneManager)
     if (!device)
         return;
 
+    timer->start(); //inicia o timer
     sceneManager->GetCurrentScene()->Start(); //executa a funcao start do script
 
     //enquanto o dispositivo estiver em execucao
@@ -56,6 +59,7 @@ void Window::Run(SceneManager* sceneManager)
         //verifica se a janela do jogo esta ativa
         if (device->isWindowActive())
         {
+            UpdateFPS(); //atualiza os quadros do jogo
             //limpa o frame anterior e define a cor de fundo
             device->getVideoDriver()->beginScene(true, true, irr::video::SColor(bgColor.red, bgColor.green, bgColor.blue, bgColor.alpha));
 
@@ -71,6 +75,29 @@ void Window::Run(SceneManager* sceneManager)
             device->yield();
         }
     }
+}
+
+//atualiza os quadros do jogo
+void Window::UpdateFPS()
+{
+    //obtem tempo atual
+    irr::u32 now = timer->getTime();
+
+    //calcula o tempo decorrido desde o ultimo frame
+    irr::u32 deltaTime = now - lastFrameTime;
+
+    //calcula o tempo que cada frame deve levar para atingir o FPS limite
+    float targetFrameTime = 1000.0f / FPSLimit;
+
+    //dormir pelo tempo restante para atingir o FPS limite
+    if (deltaTime < targetFrameTime)
+    {
+        float sleepTime = targetFrameTime - deltaTime;
+        device->sleep(static_cast<irr::u32>(sleepTime));
+    }
+
+    //atualiza o ultimo tempo de frame
+    lastFrameTime = timer->getTime();
 }
 
 //define/redefine o fullscreen da janela
@@ -130,18 +157,13 @@ irr::IrrlichtDevice* Window::GetDevice() const
 }
 
 //obtem o fps atual
-int Window::GetFPS(SceneManager* sceneManager)
+float Window::GetFPS(SceneManager* sceneManager)
 {
     //verifica se o dispositivo existe
-    if (device && device->getVideoDriver())
+    if (device && device->getTimer())
     {
-        int fps = device->getVideoDriver()->getFPS();
-        if (lastFPS != fps)
-        {
-            lastFPS = fps;
-            return fps;
-        }
+        return static_cast<float>(device->getVideoDriver()->getFPS());
     }
 
-    return 0;
+    return 0.0f;
 }

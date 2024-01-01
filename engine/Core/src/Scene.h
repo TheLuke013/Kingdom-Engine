@@ -3,7 +3,7 @@
 
 #include "../../ThirdParty/Irrlicht/include/irrlicht.h"
 #include <string>
-#include "LuaScripting.h"
+#include "../../LuaScript/src/LuaScripting.h"
 
 class Scene
 {

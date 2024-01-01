@@ -1,6 +1,12 @@
+local number = 0
+
 function Start()
 end
 
 function Update()
-    print(get_fps())
+    number = number + 1
+    print(number)
+    if number == 100 then
+        change_scene("Main")
+    end
 end

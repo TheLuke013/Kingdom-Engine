@@ -12,7 +12,7 @@ Game::Game()
 //destrutor: libera recursos do jogo ao finalizar execucao
 Game::~Game()
 {
-	window->~Window();
+	QuitGame();
 }
 
 //carrega os dados do jogo
@@ -81,7 +81,8 @@ bool Game::InitGame()
 		std::stoi(gameConfigData["ScreenHeight"]),
 		gameConfigData["BackgroundColor"],
 		std::stoi(gameConfigData["FullScreen"]),
-		std::stoi(gameConfigData["VSync"]));
+		std::stoi(gameConfigData["VSync"]),
+		std::stof(gameConfigData["FPSLimit"]));
 
 	//inicializa ponteiros para os componentes principais do dispositivo
 	sceneManager->InitClass(window->GetDevice()); //gerenciador de cenas
@@ -119,4 +120,10 @@ Window* Game::GetWindow()
 SceneManager* Game::GetSceneManager()
 {
 	return sceneManager;
+}
+
+//fecha o jogo
+void Game::QuitGame()
+{
+	window->~Window();
 }
