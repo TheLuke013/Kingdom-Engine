@@ -40,9 +40,16 @@ void Scene::Start()
 //metodo que sera chamado durante o loop do jogo
 void Scene::Update()
 {
+    //se a cena tiver um script entao o execute
     if (hasScript)
     {
         luaScript->CallLuaFunction<void>("Update");
+    }
+
+    //itera sobre todos os nodes da cena e chama o metodo Render de cada um
+    for (auto node : nodes)
+    {
+        node->Render();
     }
 }
 

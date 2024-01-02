@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "../Game.h"
 
 // construtor
 Node::Node(const std::string &name) : nodeName(name) {}
@@ -7,6 +8,12 @@ Node::Node(const std::string &name) : nodeName(name) {}
 std::string Node::GetNodeName() const
 {
     return nodeName;
+}
+
+//adiciona o node a cena atual
+void Node::AddNode()
+{
+    Game::GetSceneManager()->GetCurrentScene()->AddNode(this);
 }
 
 //altera a posicao tridimensional do Node

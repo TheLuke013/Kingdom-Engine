@@ -48,5 +48,7 @@ void LuaScripting::RegisterFunctionsInLua()
     luabridge::getGlobalNamespace(L)
                             .beginClass<Sprite>("Sprite")
                                 .addConstructor<void (*)(const std::string&)>()
+                                .addFunction("set_texture", &Sprite::SetTexture)
+                                .addFunction("add_node", &Sprite::AddNode)
                             .endClass();
 }

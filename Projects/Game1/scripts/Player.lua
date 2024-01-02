@@ -1,7 +1,8 @@
 local player = Sprite("Player")
 
 function Start()
-    print(player)
+    player:set_texture("../../icon.png")
+    player:add_node()
 end
 
 function Update()

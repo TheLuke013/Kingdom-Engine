@@ -108,9 +108,6 @@ bool Game::InitGame()
 //inicializa o loop principal do jogo
 void Game::RunGame()
 {
-	Sprite* player = new Sprite("Player");
-	std::cout << player->GetNodeName() << std::endl;
-	sceneManager->GetCurrentScene()->AddNode(player);
 	window->Run(sceneManager);
 }
 

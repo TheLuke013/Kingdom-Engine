@@ -23,8 +23,13 @@ protected:
 
 public:
     Node(const std::string& name); //construtor
+    virtual ~Node() = default; //destrutor virtual
 
     std::string GetNodeName() const;
+    void AddNode();
+
+    //metodo virtual de renderizacao do Node
+    virtual void Render() const = 0;
 };
 
 #endif
