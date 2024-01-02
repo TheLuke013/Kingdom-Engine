@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Nodes/Sprite.h"
 
 //inicializa membros estaticos
 Window* Game::window = nullptr;
@@ -107,6 +108,9 @@ bool Game::InitGame()
 //inicializa o loop principal do jogo
 void Game::RunGame()
 {
+	Sprite* player = new Sprite("Player");
+	std::cout << player->GetNodeName() << std::endl;
+	sceneManager->GetCurrentScene()->AddNode(player);
 	window->Run(sceneManager);
 }
 

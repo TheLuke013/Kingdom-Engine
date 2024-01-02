@@ -10,12 +10,19 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../bin)
 
 file(GLOB SOURCE_FILES
     "Core/src/*.cpp"
+    "Core/src/Nodes/*.cpp"
     "LuaScript/src/*.cpp"
 )
 add_executable(KingdomEngineCore ${SOURCE_FILES})
 
-target_link_libraries(KingdomEngineCore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/Irrlicht/lib/Irrlicht.lib)
-target_link_libraries(KingdomEngineCore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/Lua542/lib/lua54.lib)
+target_link_libraries(KingdomEngineCore PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/Irrlicht/lib/Irrlicht.lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/Lua542/lib/lua54.lib
+)
+
+if(MSVC)
+    set_target_properties(KingdomEngineCore PROPERTIES LINK_FLAGS /NODEFAULTLIB:LIBCMT)
+endif()
 
 add_custom_command(TARGET KingdomEngineCore POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_if_different

@@ -33,7 +33,6 @@ public:
     }
 
     void InitClass(irr::IrrlichtDevice* device);
-    void Draw();
 
     //getters e setters
     Scene* GetCurrentScene();

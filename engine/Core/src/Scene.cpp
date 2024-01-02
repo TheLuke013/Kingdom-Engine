@@ -28,12 +28,6 @@ void Scene::SetScript(const std::string& scriptPath)
     hasScript = true;
 }
 
-//desenha a cena
-void Scene::DrawScene()
-{
-
-}
-
 //metodo que sera chamado ao iniciar o jogo
 void Scene::Start()
 {
@@ -49,5 +43,24 @@ void Scene::Update()
     if (hasScript)
     {
         luaScript->CallLuaFunction<void>("Update");
+    }
+}
+
+//adiciona um node a cena
+void Scene::AddNode(Node* node)
+{
+    nodes.push_back(node);
+}
+
+//remove um node da cena
+void Scene::RemoveNode(std::string nodeName)
+{
+    for (auto node = nodes.begin(); node != nodes.end(); ++node)
+    {
+        if ((*node)->GetNodeName() == nodeName)
+        {
+            nodes.erase(node);
+            break;
+        }
     }
 }

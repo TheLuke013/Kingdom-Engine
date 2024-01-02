@@ -43,10 +43,10 @@ void LuaScripting::RegisterFunctionsInLua()
                                 .addStaticFunction("quit_game", &Engine::QuitGame)
                                 .addStaticFunction("change_scene", &Engine::ChangeScene)
                             .endClass();
-    
+
     //classe Sprite
     luabridge::getGlobalNamespace(L)
                             .beginClass<Sprite>("Sprite")
-                                .addConstructor<void(*)()>()
+                                .addConstructor<void (*)(const std::string&)>()
                             .endClass();
 }

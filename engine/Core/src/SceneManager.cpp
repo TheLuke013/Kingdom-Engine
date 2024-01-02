@@ -10,28 +10,6 @@ void SceneManager::InitClass(irr::IrrlichtDevice* device)
     sceneManager = device->getSceneManager();
 }
 
-//chama funcao para desenhar na tela
-void SceneManager::Draw()
-{
-    //verifica se ha uma cena principal definida
-    if (mainScene == nullptr)
-    {
-        std::cerr << "Nenhuma cena principal definida" << std::endl;
-    }
-    else
-    {
-        //verifica se ha uma cena atual definida
-        if (currentScene)
-        {
-            currentScene->DrawScene();
-        }
-        else
-        {
-            std::cerr << "Nenhuma cena atual definida" << std::endl;
-        }
-    }
-}
-
 //obtem a cena atual
 Scene* SceneManager::GetCurrentScene()
 {
@@ -148,7 +126,7 @@ bool SceneManager::LoadScenes(std::string projectPath, std::map<std::string, std
 
 void SceneManager::RunCurrentScene()
 {
-    Draw();
+    GetCurrentScene()->Update();
 }
 
 //muda para determinda cena

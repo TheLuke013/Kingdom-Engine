@@ -64,7 +64,6 @@ void Window::Run(SceneManager* sceneManager)
             device->getVideoDriver()->beginScene(true, true, irr::video::SColor(bgColor.red, bgColor.green, bgColor.blue, bgColor.alpha));
 
             sceneManager->RunCurrentScene();
-            sceneManager->GetCurrentScene()->Update();
 
             //finaliza o desenho do frame
             device->getVideoDriver()->endScene();

@@ -1,4 +1,4 @@
-local player = Sprite()
+local player = Sprite("Player")
 
 function Start()
     print(player)
