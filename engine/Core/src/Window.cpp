@@ -4,7 +4,7 @@
 Window::Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync, float fpsLimit) : device(nullptr)
 {
     params = irr::SIrrlichtCreationParameters();
-    params.DriverType = irr::video::EDT_SOFTWARE; //tipo do driver
+    params.DriverType = irr::video::EDT_OPENGL; //tipo do driver
     SetSize(width, height); //resolucao da janela
     SetBackgroundColor(bgColor); //define a cor de fundo da janela
     SetFullScreen(fullscreen); //tela cheia

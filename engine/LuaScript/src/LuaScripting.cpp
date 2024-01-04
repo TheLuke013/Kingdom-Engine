@@ -49,6 +49,10 @@ void LuaScripting::RegisterFunctionsInLua()
                             .beginClass<Sprite>("Sprite")
                                 .addConstructor<void (*)(const std::string&)>()
                                 .addFunction("set_texture", &Sprite::SetTexture)
+                                .addFunction("set_position", &Sprite::SetPosition)
+                                .addFunction("set_rotation", &Sprite::SetRotation)
+                                .addFunction("set_scale", &Sprite::SetScale)
                                 .addFunction("add_node", &Sprite::AddNode)
+                                .addFunction("get_node_type", &Sprite::GetNodeType)
                             .endClass();
 }

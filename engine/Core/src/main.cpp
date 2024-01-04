@@ -31,18 +31,21 @@ int main(int argc, char *argv[])
         if (projectPath.empty())
         {
             std::cerr << "Caminho do projeto nao especificado" << std::endl;
+            std::cin.get();
             return 1;
         }
 
         if (!LoadGameConfig())
         {
+            std::cin.get();
             std::cerr << "Erro ao abrir arquivo de config. do projeto" << std::endl;
             return 1;
         }
     }
     else
     {
-        std::cerr << "Uso: " << argv[0] << " <caminho_do_arquivo_de_configuracao>" << std::endl;
+        std::cerr << "Nenhum caminho de projeto foi especificado. Faltam 1 argumentos" << std::endl;
+        std::cin.get();
         return 1;
     }
     
@@ -52,6 +55,7 @@ int main(int argc, char *argv[])
     if (!game.LoadData(configData, projectPath))
     {
         std::cerr << "Erro ao carregar os dados do jogo" << std::endl;
+        std::cin.get();
         return 1;
     }
 
@@ -59,6 +63,7 @@ int main(int argc, char *argv[])
     if (!game.InitGame())
     {
         std::cerr << "Erro ao inicializar o jogo" << std::endl;
+        std::cin.get();
         return 1;
     }
 

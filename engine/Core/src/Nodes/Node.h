@@ -8,6 +8,7 @@ class Node
 {
 private:
     std::string nodeName; //nome do node
+    std::string nodeType;
     irr::scene::ISceneNode* node; //raiz do node
 
     //getters e setters
@@ -25,11 +26,14 @@ public:
     Node(const std::string& name); //construtor
     virtual ~Node() = default; //destrutor virtual
 
+    irr::scene::ISceneNode* GetNode();
     std::string GetNodeName() const;
+    std::string GetNodeType() const;
+    void SetNodeType(const std::string& nodeType);
     void AddNode();
 
     //metodo virtual de renderizacao do Node
-    virtual void Render() const = 0;
+    virtual void Render() = 0;
 };
 
 #endif
