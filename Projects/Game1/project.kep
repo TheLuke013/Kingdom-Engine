@@ -1,26 +1,12 @@
-#titulo da janela
+[WindowSettings]
 Title=Game1
-
-#largura da tela
 ScreenWidth=1024
-
-#altura da tela
 ScreenHeight=600
-
-#cena principal que sera iniciada ao executar o jogo
-MainScene=PlayerScene
-
-#cor de fundo
 BackgroundColor=(255, 0, 0, 0)
-
-#habilita/desabilita tela cheia ao iniciar
 FullScreen=0
-
-#habilita/desabilita vsync ao iniciar
 VSync=0
+FPSLimit=60.0
 
-#limite de FPS
-FPSLimit=60
-
-#habilita/desabilita debug mode ao iniciar
+[GameSettings]
 DebugMode=0
+MainScene=PlayerScene

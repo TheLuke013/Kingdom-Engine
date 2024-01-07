@@ -2,13 +2,18 @@
 
 ## project.kep
 ```ini
-Title=Game
+[WindowSettings]
+Title=Game1
 ScreenWidth=1024
 ScreenHeight=600
-MainScene=Main
 BackgroundColor=(255, 0, 0, 0)
 FullScreen=0
 VSync=0
+FPSLimit=60.0
+
+[GameSettings]
+DebugMode=0
+MainScene=PlayerScene
 ```
 ### Keys and values
 - `Title: std::string` <br>
@@ -37,3 +42,15 @@ VSync=0
 - `VSync: bool` <br>
   Desription:
   enable/disable vsync when starting
+
+- `FPSLimit: float` <br>
+  Desription:
+  sets the FPS limit at which the game renders
+
+- `DebugMode: bool` <br>
+  Desription:
+  print debug messages
+
+- `MainScene: std::string` <br>
+  Desription:
+  defines the main scene by its name

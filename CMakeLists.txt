@@ -20,6 +20,7 @@ target_include_directories(KingdomEngine PRIVATE
     "ThirdParty/Irrlicht/include"
     "ThirdParty/Lua542/include"
     "ThirdParty/LuaBridge"
+    "ThirdParty/SimpleIni"
     "src/Modules/Core"
     "src/Modules/LuaScript"
 )

@@ -1,12 +1,12 @@
 #include "Window.h"
 
 //construtor
-Window::Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync, float fpsLimit) : device(nullptr)
+Window::Window(std::string title, int width, int height, int bgColor[4], bool fullscreen, bool vsync, float fpsLimit) : device(nullptr)
 {
     params = irr::SIrrlichtCreationParameters();
     params.DriverType = irr::video::EDT_OPENGL; //tipo do driver
     SetSize(width, height); //resolucao da janela
-    SetBackgroundColor(bgColor); //define a cor de fundo da janela
+    SetBackgroundColor(bgColor[0], bgColor[1], bgColor[2], bgColor[3]); //define a cor de fundo da janela
     SetFullScreen(fullscreen); //tela cheia
     SetVSync(vsync); //vsync
     params.EventReceiver = nullptr; //receptor de eventos
@@ -144,9 +144,12 @@ void Window::SetSize(int width, int height)
 }
 
 //define/redefine a cor de fundo da janela
-void Window::SetBackgroundColor(std::string RGBAColor)
+void Window::SetBackgroundColor(int r, int g, int b, int a)
 {
-    bgColor = ParseBackgroundColor(RGBAColor);
+    bgColor.red = r;
+    bgColor.green = g;
+    bgColor.blue = b;
+    bgColor.alpha = a;
 }
 
 //obtem o dispositivo

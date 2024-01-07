@@ -25,8 +25,8 @@ inline Color ParseBackgroundColor(const std::string& colorString)
     Color backgroundColor;
     //remove os parenteses da string
     std::string trimmedString = colorString.substr(colorString.find("(") + 1,
-                                colorString.find(")") - colorString.find("(") - 1);
-    
+        colorString.find(")") - colorString.find("(") - 1);
+
     std::istringstream colorStream(trimmedString);
     std::string colorPart;
 
@@ -57,7 +57,7 @@ inline const wchar_t* ConvertStringToWChar(const std::string& string)
     int wideLength = MultiByteToWideChar(CP_UTF8, 0, string.c_str(), -1, nullptr, 0);
     wideString.resize(wideLength);
     MultiByteToWideChar(CP_UTF8, 0, string.c_str(), -1, &wideString[0], wideLength);
-    
+
     return wideString.c_str();
 }
 
@@ -76,13 +76,13 @@ inline bool OpenEngineFile(std::string filePath)
 }
 
 //le dados do arquivo e armazena valores a uma variavel map
-inline void ReadEngineFile(std::string filePath, std::map<std::string, std::string> &dataReceiver)
+inline void ReadEngineFile(std::string filePath, std::map<std::string, std::string>& dataReceiver)
 {
     std::ifstream file(filePath);
     std::string line; //linhas de texto do arquivo
     while (std::getline(file, line))
     {
-        //verifica se a linha nao esta vazia ou Ã© comentario
+        //verifica se a linha nao esta vazia ou é comentario
         if (!line.empty() && line[0] != '#')
         {
             size_t equalsPos = line.find('='); //operador de atribuicao
@@ -100,7 +100,7 @@ inline void ReadEngineFile(std::string filePath, std::map<std::string, std::stri
 }
 
 //obtem caminhos de arquivos com determinada extensao em um diretorio
-inline std::vector<std::string> GetFilesWithExtension(const std::string& path, const std::string& extension)
+inline std::vector<std::string> GetFilesWithExtension(const std::filesystem::path& path, const std::string& extension)
 {
     std::vector<std::string> files; //vector para armazenar os path dos arquivos
 
@@ -108,7 +108,7 @@ inline std::vector<std::string> GetFilesWithExtension(const std::string& path, c
     {
         if (entry.is_regular_file() && entry.path().extension() == extension)
         {
-            files.push_back(entry.path().string());
+            files.emplace_back(entry.path().string());
         }
     }
 

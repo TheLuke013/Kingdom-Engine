@@ -1,69 +1,48 @@
+#include <filesystem>
+
 #include "Game.h"
+#include "Project.h"
 
-std::string projectPath; //caminho do diretorio do projeto
-
-std::map<std::string, std::string> configData;
-
-//carrega os dados de configuracao do jogo
-bool LoadGameConfig()
-{
-    //constroi o caminho para o arquivo project.kep
-    std::string projectFile = projectPath + "project.kep";
-
-    //verifica se foi possivel abrir o arquivo
-    if (!OpenEngineFile(projectFile))
-    {
-        return 1;
-    }
-
-    //le o arquivo e armazena os dados do projeto
-    ReadEngineFile(projectFile, configData);
-    
-    return true;
-}
+std::filesystem::path projectPath; //caminho do diretorio do projeto
 
 int main(int argc, char *argv[])
 {
-    //verifica se ha argumento para o arquivo de dados do jogo
-    if (argc == 2)
+    //verifica se os argumentos passados nao sao diferente de 2
+    if (argc != 2)
     {
-        projectPath = argv[1];
-        if (projectPath.empty())
-        {
-            std::cerr << "Caminho do projeto nao especificado" << std::endl;
-            std::cin.get();
-            return 1;
-        }
-
-        if (!LoadGameConfig())
-        {
-            std::cin.get();
-            std::cerr << "Erro ao abrir arquivo de config. do projeto" << std::endl;
-            return 1;
-        }
+        std::cerr << "Use:" << argv[0] << " <project_path>" << std::endl;
+        return 1;
     }
-    else
+
+    projectPath = argv[1]; //atribui o caminho do projeto passado pelos argumentos
+
+    //verifica se o caminho passado nao é vazio
+    if (projectPath.empty())
     {
-        std::cerr << "Nenhum caminho de projeto foi especificado. Faltam 1 argumentos" << std::endl;
-        std::cin.get();
+        std::cerr << "Project path not specified" << std::endl;
+        return 1;
+    }
+
+    Project project(projectPath); //instancia do projeto
+    //verifica se o arquivo foi aberto e carregado com sucesso
+    if (!project.LoadProjectFile("project.kep"))
+    {
         return 1;
     }
     
     Game game; //instancia do jogo
 	
     //carrega os dados do jogo
-    if (!game.LoadData(configData, projectPath))
+    if (!game.LoadData(project))
     {
-        std::cerr << "Erro ao carregar os dados do jogo" << std::endl;
-        std::cin.get();
+        std::cerr << "Error: Unable to load game data" << std::endl;
         return 1;
     }
 
     //inicializa o jogo
-    if (!game.InitGame())
+    if (!game.InitGame(project))
     {
-        std::cerr << "Erro ao inicializar o jogo" << std::endl;
-        std::cin.get();
+        std::cerr << "Error: Unable to initialize the game" << std::endl;
         return 1;
     }
 

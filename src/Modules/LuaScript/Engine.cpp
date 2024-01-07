@@ -17,11 +17,36 @@ int Engine::SetTitle(lua_State *L)
     return 0;
 }
 
-//altera cor de fundo da janela
-int Engine::SetBackgroundColor(lua_State *L)
+//altera a cor de fundo da janela
+int Engine::SetBackgroundColor(lua_State* L)
 {
-    std::string bgColor = lua_tostring(L, 1);
-    Game::GetWindow()->SetBackgroundColor(bgColor);
+    // Verifica se o argumento é uma tabela
+    if (!lua_istable(L, 1))
+    {
+        return luaL_error(L, "O argumento deve ser uma tabela");
+    }
+
+    //tamanho da tabela
+    int n = luaL_len(L, 1);
+
+    //verifica se o tamanho da tabela é 4
+    if (n != 4)
+    {
+        return luaL_error(L, "A tabela deve ter 4 elementos");
+    }
+
+    //extrai os elementos da tabela e os armazena no array bgColor
+    int bgColor[4];
+    for (int i = 0; i < 4; ++i)
+    {
+        lua_rawgeti(L, 1, i + 1);  //obtem o elemento na posição i+1
+        bgColor[i] = static_cast<int>(lua_tointeger(L, -1));  //converte para int
+        lua_pop(L, 1);  //remove o elemento da pilha
+    }
+
+    //define a cor de fundo da janela
+    Game::GetWindow()->SetBackgroundColor(bgColor[0], bgColor[1], bgColor[2], bgColor[3]);
+
     return 0;
 }
 

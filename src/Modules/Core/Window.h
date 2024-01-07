@@ -18,7 +18,7 @@ private:
     float FPSLimit;
 
 public:
-    Window(std::string title, int width, int height, std::string bgColor, bool fullscreen, bool vsync, float fpsLimit);
+    Window(std::string title, int width, int height, int bgColor[4], bool fullscreen, bool vsync, float fpsLimit);
     ~Window();
 
     void Run(SceneManager* sceneManager);
@@ -29,7 +29,7 @@ public:
     void SetVSync(bool value);
     void SetTitle(std::string value);
     void SetSize(int width, int height);
-    void SetBackgroundColor(std::string RGBAColor);
+    void SetBackgroundColor(int r, int g, int b, int a);
 
     //getters
     irr::IrrlichtDevice* GetDevice() const;
