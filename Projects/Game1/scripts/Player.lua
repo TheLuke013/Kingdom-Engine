@@ -2,7 +2,7 @@ local player = Sprite("Player")
 local playerX = 1
 
 function Start()
-    player:set_texture("../../icon.png")
+    player:set_texture("pop_cat.png")
     player:add_node()
 
 end

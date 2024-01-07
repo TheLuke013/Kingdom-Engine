@@ -1,5 +1,3 @@
-.import
-engine/Core/build/
-bin/
-.vscode
-build
+bin
+.vs
+out
