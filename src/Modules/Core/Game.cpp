@@ -79,7 +79,10 @@ bool Game::InitGame(Project& project)
 //inicializa o loop principal do jogo
 void Game::RunGame()
 {
-	window->Update();
+	while (!glfwWindowShouldClose(window->GetWindow()))
+	{
+		window->Render();
+	}
 }
 
 //obtem a janela principal

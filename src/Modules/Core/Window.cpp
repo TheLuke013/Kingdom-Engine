@@ -14,7 +14,7 @@ KingdomEngine::Window::Window(const std::string& title, int width, int height)
     originalWidth = width;
     originalHeight = height;
 
-    window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL); //cria a janela glfw
+    window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr); //cria a janela glfw
     //verifica se a janela foi criada com sucesso
     if (window == NULL)
     {
@@ -38,17 +38,27 @@ void KingdomEngine::Window::CloseWindow()
 }
 
 //inicializa o loop da janela e do jogo
-void KingdomEngine::Window::Update()
+void KingdomEngine::Window::Render()
 {
-    //loop que processa a janela
-    while (!glfwWindowShouldClose(window))
-    {
-        //limpa a cor de fundo para uma nova cor
-        glClearColor(bgColor.red / 255.0f, bgColor.green / 255.0f, bgColor.blue / 255.0f, bgColor.alpha / 255.0f);
-        glClear(GL_COLOR_BUFFER_BIT); //limpa o buffer cores
-        glfwSwapBuffers(window);
-        glfwPollEvents(); //processa os eventos da janela
-    }
+    //renderiza a cor de fundo da janela e troca os buffers
+    glfwPollEvents(); //processa os eventos da janela
+    //limpa a cor de fundo para uma nova cor
+    glClearColor(bgColor.red / 255.0f, bgColor.green / 255.0f, bgColor.blue / 255.0f, bgColor.alpha / 255.0f);
+    glClear(GL_COLOR_BUFFER_BIT); //limpa o buffer cores
+    glfwSwapBuffers(window); //troca os buffers frontais da janela
+}
+
+//renderiza a cor de fundo da janela
+void KingdomEngine::Window::RenderBGColor()
+{
+    //limpa a cor de fundo para uma nova cor
+    glClearColor(bgColor.red / 255.0f, bgColor.green / 255.0f, bgColor.blue / 255.0f, bgColor.alpha / 255.0f);
+    glClear(GL_COLOR_BUFFER_BIT); //limpa o buffer cores
+}
+
+GLFWwindow* KingdomEngine::Window::GetWindow()
+{
+    return window;
 }
 
 //altera o fullscreen da janela

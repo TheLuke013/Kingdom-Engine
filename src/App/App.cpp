@@ -1,5 +1,8 @@
 #include "App.h"
 
+//construtor da aplicacao(Kingdom Engine)
+KingdomEngine::App::App() : mode(ExecMode::EDITOR), editor(nullptr) {}
+
 //inicializa o nucleo da engine e o opengl
 void KingdomEngine::App::InitEngine(int args_count, char* args_string[])
 {
@@ -20,7 +23,7 @@ void KingdomEngine::App::InitOpenGL()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //define o perfil do opengl
 
-	editorWindow = new Window("Kingdom Engine", 1024, 600); //cria a janela do editor da engine
+	editor = new Editor(); //inicializa o editor da engine
 
 	gladLoadGL(); //carrega o opengl
 }
@@ -28,16 +31,19 @@ void KingdomEngine::App::InitOpenGL()
 //inicia o loop principal de toda aplicacao
 void KingdomEngine::App::Run()
 {
-	editorWindow->SetSize(800, 800);
-	editorWindow->SetVSync(true);
-	editorWindow->SetTitle("Novo titulo");
-	editorWindow->SetBackgroundColor(100, 100, 10, 255);
-	editorWindow->Update();
+	editor->StartEditorGUI();
+
+	while (!glfwWindowShouldClose(editor->editorWindow->GetWindow()))
+	{
+		editor->CreateEditorGUI();
+		editor->Render();
+	}
 }
 
 //finaliza a engine encerrando o programa
 void KingdomEngine::App::Finish()
 {
+	editor->FinishEditor(); //finaliza o editor da engine
 	glfwTerminate(); //finaliza o glfw
 }
 
@@ -45,5 +51,8 @@ void KingdomEngine::App::Finish()
 void KingdomEngine::App::CreateDebugWindow()
 {
 	Window debugWindow("Debug", 800, 600);
-	debugWindow.Update();
+	while (!glfwWindowShouldClose(debugWindow.GetWindow()))
+	{
+		debugWindow.Render();
+	}
 }

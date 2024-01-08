@@ -23,7 +23,11 @@ namespace KingdomEngine
         ~Window();
 
         void CloseWindow();
-        void Update();
+        void Render();
+        void RenderBGColor();
+
+        //getters
+        GLFWwindow* GetWindow();
 
         //setters
         void SetFullScreen(bool value);

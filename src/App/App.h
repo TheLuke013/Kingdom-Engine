@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 
 #include <Window.h>
+#include <Editor.h>
 
 //namespace da KingdomEngine
 namespace KingdomEngine
@@ -22,7 +23,7 @@ namespace KingdomEngine
 		};
 
 		//construtor da aplicacao(Kingdom Engine)
-		App() : mode(ExecMode::EDITOR) {};
+		App();
 
 		//inicializa o nucleo da engine e o opengl
 		void InitEngine(int args_count, char* args_string[]);
@@ -36,7 +37,7 @@ namespace KingdomEngine
 
 	private:
 		ExecMode mode;
-		Window* editorWindow;
+		Editor* editor;
 
 	};
 }

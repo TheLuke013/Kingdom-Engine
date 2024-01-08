@@ -14,6 +14,8 @@ file(GLOB SOURCE_FILES
     "src/Modules/Core/*.cpp"
     "src/Modules/Core/Nodes/*.cpp"
     "src/Modules/LuaScript/*.cpp"
+    "src/Modules/Editor/*.cpp"
+    "ThirdParty/ImGui/*.cpp"
 )
 add_executable(KingdomEngine ${SOURCE_FILES})
 
@@ -28,6 +30,7 @@ target_include_directories(KingdomEngine PRIVATE
     "ThirdParty/ImGui"
     "src/Modules/Core"
     "src/Modules/LuaScript"
+    "src/Modules/Editor"
 )
 
 target_link_libraries(KingdomEngine PRIVATE
