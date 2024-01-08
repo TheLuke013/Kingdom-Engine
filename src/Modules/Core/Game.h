@@ -20,7 +20,7 @@ private:
 	std::map<std::string, std::string> scriptNames; //nomes + caminhos dos projetos
 
 	//Engine classes
-	static Window* window;
+	static KingdomEngine::Window* window;
 	static SceneManager* sceneManager;
 
 public:
@@ -31,7 +31,7 @@ public:
 	bool InitGame(Project& project);
 	void RunGame();
 
-	static Window* GetWindow();
+	static KingdomEngine::Window* GetWindow();
 	static SceneManager* GetSceneManager();
 	static void QuitGame();
 };

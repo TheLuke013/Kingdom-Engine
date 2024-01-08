@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <Window.h>
+
 //namespace da KingdomEngine
 namespace KingdomEngine
 {
@@ -30,9 +32,11 @@ namespace KingdomEngine
 		void Run();
 		//finaliza a engine encerrando o programa
 		void Finish();
+		void CreateDebugWindow();
 
 	private:
 		ExecMode mode;
+		Window* editorWindow;
 
 	};
 }

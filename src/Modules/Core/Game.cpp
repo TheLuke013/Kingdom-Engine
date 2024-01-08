@@ -2,7 +2,7 @@
 #include <Nodes/Sprite.h>
 
 //inicializa membros estaticos
-Window* Game::window = nullptr;
+KingdomEngine::Window* Game::window = nullptr;
 SceneManager* Game::sceneManager = nullptr;
 
 Game::Game()
@@ -52,14 +52,10 @@ bool Game::RegisterScripts(Project& project)
 bool Game::InitGame(Project& project)
 {
 	//cria a janela do jogo com suas propriedades
-	window = new Window(
+	window = new KingdomEngine::Window(
 		project.projectSettings.Title,
 		project.projectSettings.ScreenWidth,
-		project.projectSettings.ScreenHeight,
-		project.projectSettings.BackgroundColor,
-		project.projectSettings.FullScreen,
-		project.projectSettings.VSync,
-		project.projectSettings.FPSLimit);
+		project.projectSettings.ScreenHeight);
 
 	//sceneManager->InitClass(window->GetDevice()); //inicializa o gerenciador de cenas
 
@@ -83,11 +79,11 @@ bool Game::InitGame(Project& project)
 //inicializa o loop principal do jogo
 void Game::RunGame()
 {
-	window->Run(sceneManager);
+	window->Update();
 }
 
 //obtem a janela principal
-Window* Game::GetWindow()
+KingdomEngine::Window* Game::GetWindow()
 {
 	return window;
 }

@@ -33,6 +33,7 @@ target_include_directories(KingdomEngine PRIVATE
 target_link_libraries(KingdomEngine PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/Lua542/lib/lua54.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/glfw/lib/glfw3.lib
+    opengl32.lib
 )
 
 if(MSVC)

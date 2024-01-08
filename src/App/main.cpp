@@ -2,8 +2,12 @@
 
 int main(int argc, char *argv[])
 {
-    KingdomEngine::App app;
-    app.InitEngine(argc, argv);
+    //instancia da engine
+    KingdomEngine::App engine;
+    //inicializa a engine e o opengl
+    engine.InitEngine(argc, argv);
+    //inicializa o loop da engine
+    engine.Run();
 
     return 0;
 }

@@ -39,7 +39,6 @@ void LuaScripting::RegisterFunctionsInLua()
                                 .addStaticFunction("WindowSetVSync", &Engine::SetVSync)
                                 .addStaticFunction("WindowSetTitle", &Engine::SetTitle)
                                 .addStaticFunction("WindowSetBgColor", &Engine::SetBackgroundColor)
-                                .addStaticFunction("GetFPS", &Engine::GetFPS)
                                 .addStaticFunction("QuitGame", &Engine::QuitGame)
                                 .addStaticFunction("ChangeScene", &Engine::ChangeScene)
                             .endClass();

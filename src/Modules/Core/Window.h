@@ -1,39 +1,37 @@
-#ifndef ENGINE_WINDOW_H
-#define ENGINE_WINDOW_H
+#ifndef WINDOW_CLASS_H
+#define WINDOW_CLASS_H
 
-//#include <irrlicht.h>
+#include <GLFW/glfw3.h>
+
 #include "Utils.h"
 #include "SceneManager.h"
 
-class Window
+namespace KingdomEngine
 {
-private:
-    Color bgColor; //cor de fundo
+    class Window
+    {
+    private:
+        Color bgColor; //cor de fundo
 
-    //irr::IrrlichtDevice* device; //dispositivo da engine
-    //irr::SIrrlichtCreationParameters params; //criacao de parametros para o dispositivo
-    //irr::ITimer* timer; //timer do jogo
-    //irr::u32 lastFrameTime; //armazena o tempo do ultimo frame
+        GLFWwindow* window; //instancia da janela glfw
 
-    float FPSLimit;
+    public:
+        int originalWidth; //largura original da janela
+        int originalHeight; //altura original da janela
 
-public:
-    Window(std::string title, int width, int height, int bgColor[4], bool fullscreen, bool vsync, float fpsLimit);
-    ~Window();
+        Window(const std::string& title, int width, int height);
+        ~Window();
 
-    void Run(SceneManager* sceneManager);
-    void UpdateFPS();
+        void CloseWindow();
+        void Update();
 
-    //setters
-    void SetFullScreen(bool value);
-    void SetVSync(bool value);
-    void SetTitle(std::string value);
-    void SetSize(int width, int height);
-    void SetBackgroundColor(int r, int g, int b, int a);
-
-    //getters
-    //irr::IrrlichtDevice* GetDevice() const;
-    float GetFPS(SceneManager* sceneManager);
-};
+        //setters
+        void SetFullScreen(bool value);
+        void SetVSync(bool value);
+        void SetTitle(const std::string& value);
+        void SetSize(int width, int height);
+        void SetBackgroundColor(int r, int g, int b, int a);
+    };
+}
 
 #endif

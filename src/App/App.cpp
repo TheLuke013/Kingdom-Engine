@@ -20,21 +20,7 @@ void KingdomEngine::App::InitOpenGL()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //define o perfil do opengl
 
-	GLFWwindow* window = glfwCreateWindow(1024, 600, "Kingdom Engine", NULL, NULL); //cria a janela
-	//verifica se a janela foi criada com sucesso
-	if (window == NULL)
-	{
-		std::cout << "Failed to create window" << std::endl;
-		Finish();
-	}
-
-	glfwMakeContextCurrent(window); //faz da janela o contexto atual
-
-	//loop que processa a janela
-	while (!glfwWindowShouldClose(window))
-	{
-		glfwPollEvents(); //processa os eventos da janela
-	}
+	editorWindow = new Window("Kingdom Engine", 1024, 600); //cria a janela do editor da engine
 
 	gladLoadGL(); //carrega o opengl
 }
@@ -42,10 +28,22 @@ void KingdomEngine::App::InitOpenGL()
 //inicia o loop principal de toda aplicacao
 void KingdomEngine::App::Run()
 {
+	editorWindow->SetSize(800, 800);
+	editorWindow->SetVSync(true);
+	editorWindow->SetTitle("Novo titulo");
+	editorWindow->SetBackgroundColor(100, 100, 10, 255);
+	editorWindow->Update();
 }
 
 //finaliza a engine encerrando o programa
 void KingdomEngine::App::Finish()
 {
 	glfwTerminate(); //finaliza o glfw
+}
+
+//cria a janela de debug da engine
+void KingdomEngine::App::CreateDebugWindow()
+{
+	Window debugWindow("Debug", 800, 600);
+	debugWindow.Update();
 }

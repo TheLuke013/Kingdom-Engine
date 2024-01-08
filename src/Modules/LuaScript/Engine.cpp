@@ -50,14 +50,6 @@ int Engine::SetBackgroundColor(lua_State* L)
     return 0;
 }
 
-//obtem o numero do fps
-int Engine::GetFPS(lua_State *L)
-{
-    float fps = Game::GetWindow()->GetFPS(Game::GetSceneManager());
-    lua_pushnumber(L, static_cast<lua_Number>(fps));
-    return 1;
-}
-
 //fecha o jogo
 int Engine::QuitGame(lua_State *L)
 {
