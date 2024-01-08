@@ -1,8 +1,8 @@
 local bg_color = {0, 0, 0, 0}
 
 function Start()
-    Engine.window_set_vsync(false)
-    Engine.window_set_title("Piscando loucamente a tela")
+    Engine.WindowSetVSync(false)
+    Engine.WindowSetTitle("Piscando loucamente a tela")
 end
 
 function Update()
@@ -12,5 +12,5 @@ function Update()
     bg_color[2] = math.random(1, 255)
     bg_color[3] = math.random(1, 255)
 
-    Engine.window_set_bg_color(bg_color)
+    Engine.WindowSetBgColor(bg_color)
 end

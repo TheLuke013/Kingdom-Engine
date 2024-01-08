@@ -40,7 +40,7 @@ int Engine::SetBackgroundColor(lua_State* L)
     for (int i = 0; i < 4; ++i)
     {
         lua_rawgeti(L, 1, i + 1);  //obtem o elemento na posição i+1
-        bgColor[i] = static_cast<int>(lua_tointeger(L, -1));  //converte para int
+        bgColor[i] = static_cast<int>(static_cast<lua_Integer>(lua_tointeger(L, -1))); //converte para int
         lua_pop(L, 1);  //remove o elemento da pilha
     }
 

@@ -6,9 +6,9 @@
 class Sprite : public Node
 {
 private:
-    irr::scene::IBillboardSceneNode* spriteNode; //Node do sprite
-    irr::video::SMaterial material; //material do sprite
-    irr::core::vector2d<irr::s32> spritePosition; //posicao do sprite
+    //irr::scene::IBillboardSceneNode* spriteNode; //Node do sprite
+    //irr::video::SMaterial material; //material do sprite
+    //irr::core::vector2d<irr::s32> spritePosition; //posicao do sprite
 
 public:
     //construtor

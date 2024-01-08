@@ -1,7 +1,7 @@
 #ifndef SCENE_MANAGER_H
 #define SCENE_MANAGER_H
 
-#include <irrlicht.h>
+//#include <irrlicht.h>
 #include "Scene.h"
 #include "Utils.h"
 #include <vector>
@@ -12,7 +12,7 @@ class SceneManager
 private:
     static SceneManager* instance; //instancia da classe
 
-    irr::scene::ISceneManager* sceneManager;
+    //irr::scene::ISceneManager* sceneManager;
     std::vector<Scene*> scenes; //armazena ponteiros para as cenas
 
     Scene* currentScene;
@@ -32,12 +32,12 @@ public:
         return instance;
     }
 
-    void InitClass(irr::IrrlichtDevice* device);
+    //void InitClass(irr::IrrlichtDevice* device);
 
     //getters e setters
     Scene* GetCurrentScene();
     Scene* GetScene(std::string sceneName);
-    irr::scene::ISceneManager* GetSceneManager();
+    //irr::scene::ISceneManager* GetSceneManager();
 
     void CreateNewScene(std::string sceneName);
     void AddScene(Scene* newScene);

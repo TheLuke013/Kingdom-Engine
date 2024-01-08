@@ -2,14 +2,14 @@
 #define NODE_H
 
 #include <string>
-#include <irrlicht.h>
+//#include <irrlicht.h>
 
 class Node
 {
 private:
     std::string nodeName; //nome do node
     std::string nodeType;
-    irr::scene::ISceneNode* node; //raiz do node
+    //irr::scene::ISceneNode* node; //raiz do node
 
     //getters e setters
     void SetPosition(float x, float y, float z);
@@ -26,7 +26,7 @@ public:
     Node(const std::string& name); //construtor
     virtual ~Node() = default; //destrutor virtual
 
-    irr::scene::ISceneNode* GetNode();
+    //irr::scene::ISceneNode* GetNode();
     std::string GetNodeName() const;
     std::string GetNodeType() const;
     void SetNodeType(const std::string& nodeType);

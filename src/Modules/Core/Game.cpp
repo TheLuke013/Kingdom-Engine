@@ -22,7 +22,7 @@ bool Game::LoadData(Project& project)
 	//registra todos scripts presentes no projeto
 	if (!RegisterScripts(project))
 	{
-		std::cerr << "Erro ao carregar e registrar os scripts" << std::endl;
+		std::cerr << "Error loading and registering scripts" << std::endl;
 		return false;
 	}
 
@@ -51,7 +51,7 @@ bool Game::RegisterScripts(Project& project)
 //inicializa o jogo
 bool Game::InitGame(Project& project)
 {
-	//cria o dispositivo da engine com o driver de sofware
+	//cria a janela do jogo com suas propriedades
 	window = new Window(
 		project.projectSettings.Title,
 		project.projectSettings.ScreenWidth,
@@ -61,8 +61,7 @@ bool Game::InitGame(Project& project)
 		project.projectSettings.VSync,
 		project.projectSettings.FPSLimit);
 
-	//inicializa ponteiros para os componentes principais do dispositivo
-	sceneManager->InitClass(window->GetDevice()); //gerenciador de cenas
+	//sceneManager->InitClass(window->GetDevice()); //inicializa o gerenciador de cenas
 
 	//carrega todas as cenas
 	if (!sceneManager->LoadScenes(project.projectPath.string(), scriptNames))
@@ -76,7 +75,7 @@ bool Game::InitGame(Project& project)
 		return false;
 	}
 
-	std::cout << "Cena atual: " << sceneManager->GetCurrentScene()->GetSceneName() << std::endl;
+	std::cout << "Current scene: " << sceneManager->GetCurrentScene()->GetSceneName() << std::endl;
 
 	return true;
 }

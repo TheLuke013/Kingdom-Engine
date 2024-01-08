@@ -9,4 +9,4 @@ FPSLimit=60.0
 
 [GameSettings]
 DebugMode=0
-MainScene=PlayerScene
+MainScene=Scene2

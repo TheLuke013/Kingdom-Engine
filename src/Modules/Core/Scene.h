@@ -1,7 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <irrlicht.h>
+//#include <irrlicht.h>
 #include <LuaScripting.h>
 #include <string>
 #include <vector>
@@ -10,7 +10,7 @@
 class Scene
 {
 private:
-    irr::scene::ISceneNode* rootNode; //raiz da cena
+    //irr::scene::ISceneNode* rootNode; //raiz da cena
 
     std::vector<Node*> nodes; //nodes filhos da cena
 

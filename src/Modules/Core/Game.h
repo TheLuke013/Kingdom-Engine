@@ -4,8 +4,9 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include <cassert>
-#include <irrlicht.h>
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 #include "SceneManager.h"
 #include "Utils.h"

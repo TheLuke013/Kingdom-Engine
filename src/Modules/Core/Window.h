@@ -1,7 +1,7 @@
 #ifndef ENGINE_WINDOW_H
 #define ENGINE_WINDOW_H
 
-#include <irrlicht.h>
+//#include <irrlicht.h>
 #include "Utils.h"
 #include "SceneManager.h"
 
@@ -10,10 +10,10 @@ class Window
 private:
     Color bgColor; //cor de fundo
 
-    irr::IrrlichtDevice* device; //dispositivo da engine
-    irr::SIrrlichtCreationParameters params; //criacao de parametros para o dispositivo
-    irr::ITimer* timer; //timer do jogo
-    irr::u32 lastFrameTime; //armazena o tempo do ultimo frame
+    //irr::IrrlichtDevice* device; //dispositivo da engine
+    //irr::SIrrlichtCreationParameters params; //criacao de parametros para o dispositivo
+    //irr::ITimer* timer; //timer do jogo
+    //irr::u32 lastFrameTime; //armazena o tempo do ultimo frame
 
     float FPSLimit;
 
@@ -32,7 +32,7 @@ public:
     void SetBackgroundColor(int r, int g, int b, int a);
 
     //getters
-    irr::IrrlichtDevice* GetDevice() const;
+    //irr::IrrlichtDevice* GetDevice() const;
     float GetFPS(SceneManager* sceneManager);
 };
 

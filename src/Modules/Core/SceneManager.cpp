@@ -5,10 +5,10 @@ SceneManager* SceneManager::instance = nullptr;
 SceneManager::~SceneManager() {}
 
 //inicializa a classe
-void SceneManager::InitClass(irr::IrrlichtDevice* device)
-{
-    sceneManager = device->getSceneManager();
-}
+//void SceneManager::InitClass(irr::IrrlichtDevice* device)
+//{
+//    sceneManager = device->getSceneManager();
+//}
 
 //obtem a cena atual
 Scene* SceneManager::GetCurrentScene()
@@ -31,10 +31,10 @@ Scene* SceneManager::GetScene(std::string sceneName)
 }
 
 //obtem o gerenciador de cena Irrlicht
-irr::scene::ISceneManager* SceneManager::GetSceneManager()
-{
-    return sceneManager;
-}
+//irr::scene::ISceneManager* SceneManager::GetSceneManager()
+//{
+//    return sceneManager;
+//}
 
 //cria uma nova cena e adiciona ao vector das cenas
 void SceneManager::CreateNewScene(std::string sceneName)
