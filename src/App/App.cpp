@@ -1,7 +1,7 @@
 #include "App.h"
 
 //construtor da aplicacao(Kingdom Engine)
-KingdomEngine::App::App() : mode(ExecMode::EDITOR), editor(nullptr) {}
+KingdomEngine::App::App() : editor(nullptr) {}
 
 //inicializa o nucleo da engine e o opengl
 void KingdomEngine::App::InitEngine(int args_count, char* args_string[])
@@ -32,12 +32,26 @@ void KingdomEngine::App::InitOpenGL()
 void KingdomEngine::App::Run()
 {
 	editor->StartEditorGUI(); //inicia o gui da engine
+	std::thread debugThread;
 
 	//loop principal de toda engine
 	while (!glfwWindowShouldClose(editor->editorWindow->GetWindow()))
 	{
 		editor->CreateEditorGUI(); //cria os frames do gui da engine
 		editor->Render(); //renderiza o editor
+
+		//verifica se um projeto esta em execucao
+		if (editor->isRunningProject)
+		{
+			//verifica se a thread de debug ja esta em execucao
+			if (!debugThread.joinable())
+			{
+				//cria uma nova thread para a janela debug
+				debugThread = std::thread(&KingdomEngine::App::CreateDebugTask, this);
+				debugThread.detach(); ///faz a thread executar independentemente da thread principal
+				editor->isRunningProject = false; //define como false para evitar outra chamada da thread
+			}
+		}
 
 		//verifica se o editor nao esta em execucao
 		if (!editor->isRunningEditor)
@@ -55,11 +69,23 @@ void KingdomEngine::App::Finish()
 }
 
 //cria a janela de debug da engine
-void KingdomEngine::App::CreateDebugWindow()
+void KingdomEngine::App::CreateDebugTask()
 {
-	Window debugWindow("Debug", 800, 600);
-	while (!glfwWindowShouldClose(debugWindow.GetWindow()))
+	//carrega os dados do jogo a partir do arquivo kep
+	editor->project->LoadProjectFile("project.kep");
+
+	//cria a janela de debug com as propriedades do projeto
+	Window* debugWindow = new Window(
+		editor->project->projectSettings.Title,
+		editor->project->projectSettings.ScreenWidth,
+		editor->project->projectSettings.ScreenHeight);
+
+	while (!glfwWindowShouldClose(debugWindow->GetWindow()))
 	{
-		debugWindow.Render();
+		debugWindow->Render();
 	}
+	delete debugWindow;
+
+	//define como false para parar a execucao do projeto
+	editor->isRunningProject = false;
 }

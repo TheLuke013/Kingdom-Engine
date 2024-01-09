@@ -7,6 +7,7 @@
 #include <ImGuiFileDialog.h>
 
 #include <Window.h>
+#include <Project.h>
 
 namespace KingdomEngine
 {
@@ -21,8 +22,10 @@ namespace KingdomEngine
 		std::string OpenFileDialog(const std::string& key);
 
 	public:
-		Window* editorWindow;
-		bool isRunningEditor;
+		Window* editorWindow; //instancia da janela do editor
+		Project* project; //instancia do projeto
+		bool isRunningEditor; //variavel que auxilie outras classes a saber se o editor esta em execucao
+		bool isRunningProject; //variavel que auxilie outras classes a saber se o projeto esta em execucao
 
 		Editor(); //construtor do editor
 		~Editor(); //destrutor do editor

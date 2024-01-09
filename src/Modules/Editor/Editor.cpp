@@ -39,13 +39,17 @@ void KingdomEngine::Editor::CreateTabs()
             //botao que ao clicar abre dialogo de arquivos para escolher o projeto que quer iniciar
             if (ImGui::Button("Run a project"))
             {
-                IGFD::FileDialog::Instance()->OpenDialog("OpenProjectDialog", "Open a Project", ".kep", ".");
+                IGFD::FileDialog::Instance()->OpenDialog("OpenProjectDialog", "Open a Project", nullptr, "");
             }
 
             std::string fileSelected = OpenFileDialog("OpenProjectDialog");
-            if (fileSelected != "")
+            //verifica se um arquivo foi selecionado e executa o projeto
+            if (!fileSelected.empty())
             {
                 std::cout << fileSelected << std::endl;
+                project = new Project(fileSelected);
+                isRunningProject = true;
+                fileSelected = "";
             }
 
             ImGui::EndTabItem();
@@ -72,7 +76,7 @@ std::string KingdomEngine::Editor::OpenFileDialog(const std::string& key)
     {
         if (IGFD::FileDialog::Instance()->IsOk())
         {
-            selectedFilePath = IGFD::FileDialog::Instance()->GetFilePathName();
+            selectedFilePath = IGFD::FileDialog::Instance()->GetCurrentPath();
         }
 
         IGFD::FileDialog::Instance()->Close();
@@ -81,12 +85,14 @@ std::string KingdomEngine::Editor::OpenFileDialog(const std::string& key)
     return selectedFilePath;
 }
 
-
 //construtor do editor
 KingdomEngine::Editor::Editor()
 {
     editorWindow = new Window("Kingdom Engine", 1024, 600); //cria a janela do editor da engine
-    isRunningEditor = true;
+    project = nullptr; //inicializa project como nullptr como padrao
+    isRunningEditor = true; //define como true para nao encerrar o programa
+    //define como false como padrao, pois por padrao a engine nao ira iniciar com um projeto em execucao
+    isRunningProject = false;
 }
 
 //destrutor do editor

@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <thread>
 
 #include <Window.h>
 #include <Editor.h>
@@ -15,13 +16,6 @@ namespace KingdomEngine
 	class App
 	{
 	public:
-		//enum de modos de execucao da engine
-		enum class ExecMode
-		{
-			EDITOR = 0,
-			DEBUG = 1
-		};
-
 		//construtor da aplicacao(Kingdom Engine)
 		App();
 
@@ -33,10 +27,9 @@ namespace KingdomEngine
 		void Run();
 		//finaliza a engine encerrando o programa
 		void Finish();
-		void CreateDebugWindow();
+		void CreateDebugTask();
 
 	private:
-		ExecMode mode;
 		Editor* editor;
 
 	};
