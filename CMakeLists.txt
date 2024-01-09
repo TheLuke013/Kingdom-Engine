@@ -15,7 +15,9 @@ file(GLOB SOURCE_FILES
     "src/Modules/Core/Nodes/*.cpp"
     "src/Modules/LuaScript/*.cpp"
     "src/Modules/Editor/*.cpp"
+
     "ThirdParty/ImGui/*.cpp"
+    "ThirdParty/ImGuiFileDialog/*.cpp"
 )
 add_executable(KingdomEngine ${SOURCE_FILES})
 
@@ -28,6 +30,8 @@ target_include_directories(KingdomEngine PRIVATE
     "ThirdParty/LuaBridge"
     "ThirdParty/SimpleIni"
     "ThirdParty/ImGui"
+    "ThirdParty/ImGuiFileDialog"
+
     "src/Modules/Core"
     "src/Modules/LuaScript"
     "src/Modules/Editor"

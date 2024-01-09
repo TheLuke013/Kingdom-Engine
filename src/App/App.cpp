@@ -31,19 +31,26 @@ void KingdomEngine::App::InitOpenGL()
 //inicia o loop principal de toda aplicacao
 void KingdomEngine::App::Run()
 {
-	editor->StartEditorGUI();
+	editor->StartEditorGUI(); //inicia o gui da engine
 
+	//loop principal de toda engine
 	while (!glfwWindowShouldClose(editor->editorWindow->GetWindow()))
 	{
-		editor->CreateEditorGUI();
-		editor->Render();
+		editor->CreateEditorGUI(); //cria os frames do gui da engine
+		editor->Render(); //renderiza o editor
+
+		//verifica se o editor nao esta em execucao
+		if (!editor->isRunningEditor)
+		{
+			Finish(); //finaliza a engine
+		}
 	}
 }
 
 //finaliza a engine encerrando o programa
 void KingdomEngine::App::Finish()
 {
-	editor->FinishEditor(); //finaliza o editor da engine
+	delete editor; //deleta a instancia do editor
 	glfwTerminate(); //finaliza o glfw
 }
 

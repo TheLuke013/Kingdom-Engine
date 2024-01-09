@@ -1,9 +1,9 @@
 #ifndef APP_CLASS_H
 #define APP_CLASS_H
 
-#include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 #include <Window.h>
 #include <Editor.h>

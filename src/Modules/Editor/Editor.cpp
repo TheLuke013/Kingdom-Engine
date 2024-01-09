@@ -1,12 +1,95 @@
 #include "Editor.h"
 
+//cria o fundo da engine
+void KingdomEngine::Editor::CreateBackground()
+{
+    ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;
+
+
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(viewport->WorkPos);
+    ImGui::SetNextWindowSize(viewport->WorkSize);
+
+    bool pOpen = true;
+    if (ImGui::Begin("Kingdom Engine", &pOpen, flags))
+    {
+        CreateTabs();
+    }
+    ImGui::End();
+}
+
+//cria as abas principais da engine
+void KingdomEngine::Editor::CreateTabs()
+{
+    //colecao das abas da engine
+    if (ImGui::BeginTabBar("##MainTabBar"))
+    {
+        //aba Home
+        if (ImGui::BeginTabItem("Home"))
+        {
+            //conteudo
+            ImGui::EndTabItem();
+        }
+
+        //aba Editor
+        if (ImGui::BeginTabItem("Editor"))
+        {
+            //conteudo
+
+            //botao que ao clicar abre dialogo de arquivos para escolher o projeto que quer iniciar
+            if (ImGui::Button("Run a project"))
+            {
+                IGFD::FileDialog::Instance()->OpenDialog("OpenProjectDialog", "Open a Project", ".kep", ".");
+            }
+
+            std::string fileSelected = OpenFileDialog("OpenProjectDialog");
+            if (fileSelected != "")
+            {
+                std::cout << fileSelected << std::endl;
+            }
+
+            ImGui::EndTabItem();
+        }
+
+        //aba Script
+        if (ImGui::BeginTabItem("Script"))
+        {
+            //conteudo
+            ImGui::EndTabItem();
+        }
+
+        ImGui::EndTabBar();
+    }
+}
+
+//abre janela de dialog de arquivos
+std::string KingdomEngine::Editor::OpenFileDialog(const std::string& key)
+{
+    std::string selectedFilePath;
+
+    //dialog de arquivo
+    if (IGFD::FileDialog::Instance()->Display(key, NULL, ImVec2(3, 3)))
+    {
+        if (IGFD::FileDialog::Instance()->IsOk())
+        {
+            selectedFilePath = IGFD::FileDialog::Instance()->GetFilePathName();
+        }
+
+        IGFD::FileDialog::Instance()->Close();
+    }
+
+    return selectedFilePath;
+}
+
+
 //construtor do editor
 KingdomEngine::Editor::Editor()
 {
     editorWindow = new Window("Kingdom Engine", 1024, 600); //cria a janela do editor da engine
+    isRunningEditor = true;
 }
 
-//destutor do editor
+//destrutor do editor
 KingdomEngine::Editor::~Editor()
 {
     FinishEditor();
@@ -17,7 +100,7 @@ void KingdomEngine::Editor::StartEditorGUI()
 {
     //configuracao do imgui
     ImGui::CreateContext(); //define o contexto imgui
-    ImGui::StyleColorsClassic(); //define o estilo de cor classico
+    ImGui::StyleColorsDark(); //define o estilo de cor dark
     ImGui_ImplGlfw_InitForOpenGL(editorWindow->GetWindow(), true); //inicializa o backend para glfw
     ImGui_ImplOpenGL3_Init(); //inicializa o backend para opengl3
     //ativa navegacao por teclado e gamepad
@@ -35,6 +118,7 @@ void KingdomEngine::Editor::FinishEditor()
     ImGui::DestroyContext();
 }
 
+//cria um novo frame imgui, opengl e glfw
 void KingdomEngine::Editor::CreateEditorGUI()
 {
     //inicia um novo frame imgui
@@ -42,9 +126,10 @@ void KingdomEngine::Editor::CreateEditorGUI()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::ShowDemoWindow();
+    CreateBackground();
 }
 
+//renderiza a janela e o imgui
 void KingdomEngine::Editor::Render()
 {
     glfwPollEvents();
